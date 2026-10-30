@@ -1,0 +1,113 @@
+{
+  "content": {
+    "home": {
+      "title": "Together for a living Tunisia",
+      "subtitle": "Protecting nature, empowering communities, and advancing a sustainable future for North Africa.",
+      "heroImage": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80"
+    },
+    "about": {
+      "mission": "To stop the degradation of the natural environment and build a future in which people live in harmony with nature.",
+      "vision": "A healthy, resilient region where people and nature thrive together.",
+      "summary": "WWF North Africa works with communities, institutions, and partners to preserve biodiversity, restore ecosystems, and improve livelihoods."
+    },
+    "projects": [
+      {
+        "title": "Marine conservation",
+        "summary": "Protecting coastal ecosystems and supporting fishing communities.",
+        "image": "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "title": "Freshwater restoration",
+        "summary": "Improving water stewardship and ecosystem resilience across priority basins.",
+        "image": "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "title": "Climate adaptation",
+        "summary": "Helping communities respond to climate risks and environmental change.",
+        "image": "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=900&q=80"
+      }
+    ],
+    "news": [
+      {
+        "headline": "Community-led restoration in action",
+        "summary": "Local actors are restoring wetlands and strengthening a network of nature-positive practices.",
+        "date": "2026-10-30",
+        "image": "https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?auto=format&fit=crop&w=900&q=80"
+      },
+      {
+        "headline": "New partnership expands field support",
+        "summary": "Collaborations with local institutions are improving outreach and on-the-ground action.",
+        "date": "2026-09-15",
+        "image": "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=900&q=80"
+      }
+    ],
+    "team": [
+      {
+        "name": "Jamel Jrijer",
+        "role": "Director",
+        "focus": "Programme leadership and institutional partnerships."
+      },
+      {
+        "name": "Intissar Ferjani",
+        "role": "People & Culture Manager",
+        "focus": "Capacity building, staff development and internal engagement."
+      },
+      {
+        "name": "Amina Ben Ali",
+        "role": "Field Programme Lead",
+        "focus": "Operational delivery and field coordination."
+      }
+    ],
+    "partners": [
+      "ANPE",
+      "Direction Générale des Forêts",
+      "Attijari Bank",
+      "Zitouna Tamkeen"
+    ],
+    "contact": {
+      "email": "contact@wwfna.org",
+      "phone": "+216 00 000 000",
+      "address": "5 Rue Ibn El Monadi, El Menzah 1, 1004 Tunis",
+      "facebook": "https://www.facebook.com",
+      "instagram": "https://www.instagram.com",
+      "linkedin": "https://www.linkedin.com"
+    },
+    "downloads": [
+      {
+        "name": "WWF-NA grievance form",
+        "url": "/WWF-NA-grievance-form.pdf"
+      },
+      {
+        "name": "WWF-NA grievance mechanism",
+        "url": "/WWF-NA-grievance-mechanism.pdf"
+      }
+    ]
+  },
+  "drafts": [],
+  "queue": [],
+  "approved": {
+    "home": {
+      "title": "Together for a living Tunisia",
+      "subtitle": "Protecting nature, empowering communities, and advancing a sustainable future for North Africa.",
+      "heroImage": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80"
+    },
+    "about": {
+      "mission": "To stop the degradation of the natural environment and build a future in which people live in harmony with nature.",
+      "vision": "A healthy, resilient region where people and nature thrive together.",
+      "summary": "WWF North Africa works with communities, institutions, and partners to preserve biodiversity, restore ecosystems, and improve livelihoods."
+    },
+    "projects": [],
+    "news": [],
+    "team": [],
+    "partners": [],
+    "contact": {
+      "email": "contact@wwfna.org",
+      "phone": "+216 00 000 000",
+      "address": "5 Rue Ibn El Monadi, El Menzah 1, 1004 Tunis",
+      "facebook": "https://www.facebook.com",
+      "instagram": "https://www.instagram.com",
+      "linkedin": "https://www.linkedin.com"
+    },
+    "downloads": []
+  }
+}

@@ -1,39 +1,65 @@
-# WWF North Africa – site web (Tunisie)
+# WWF North Africa — Independent CMS Setup
 
-Deux versions du même site sont fournies.
+This repository now includes an independent pre-launch CMS for the WWF North Africa website.
 
-## 1. `standalone/index.html`
-Un seul fichier (environ 8 Mo) : HTML, CSS, JavaScript, images et PDF intégrés.
-Double-clic pour l'ouvrir, ou dépôt tel quel sur n'importe quel hébergement.
+## What it does
 
-## 2. `site/` (code source lisible)
-```
-site/
-├── index.html            structure de la page
-├── css/styles.css        tout le style (variables de couleur en haut)
-├── js/app.js             contenu, pages, recherche, panier, formulaires
-├── js/images.js          liste des images et des PDF téléchargeables
-├── js/vendor/leaflet.js  carte (Leaflet 1.9.4)
-├── images/               photos, logos, produits
-└── docs/                 formulaire de plainte + document du mécanisme (PDF)
-```
-Ouvrez `site/index.html` dans un navigateur (aucun serveur ni installation nécessaire).
-Pour tester avec un serveur local : `python3 -m http.server` dans le dossier `site/`.
+- Separate admin interface served from `/admin`
+- Manager and administrator roles with login authentication
+- Draft saving and private preview
+- Approval workflow before launch
+- Persistent JSON storage on disk
+- Image upload support via the local uploads folder
+- No automatic public launch when content is saved
 
-## Où modifier quoi (dans `js/app.js`)
-- **Textes** : chaque texte est un tableau `["English","Français","العربية"]`.
-- **Menu** : constante `NV`. **Projets** : `PR`. **Actualités** : `N` (dates au format AAAA-MM-JJ).
-- **Équipe** : `TEAM`. **Produits et prix (DT)** : `P`. **Espèces** : `SP`.
-- **Mécanisme de plaintes** : adresse `GRM_EMAIL`, textes `GCH` (canaux) et `GST` (étapes).
-- **Newsletter** : `NL_ENDPOINT` (vide = ouvre un e-mail vers contact@wwfna.org). Renseignez l'adresse d'envoi de votre service (Mailchimp, Brevo…) pour une inscription automatique.
-- **Images** : remplacez les fichiers dans `images/` en gardant les mêmes noms.
+## Run locally
 
-## À savoir
-- La commande de la boutique (D17 / carte bancaire) est une démonstration : aucune donnée de paiement n'est collectée. Il faut brancher une vraie passerelle de paiement.
-- Les images OpenStreetMap de la carte nécessitent une connexion Internet.
-- Les polices (Oswald, Inter, Noto Sans Arabic) viennent de Google Fonts.
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## Crédits et licences
-- Carte : Leaflet (BSD-2) et © OpenStreetMap contributors.
-- Silhouettes d'animaux : game-icons.net (CC BY 3.0) et Noto Emoji (Apache 2.0). Cette mention est affichée en bas de page : à conserver.
-- Photos et logos : fournis par WWF Afrique du Nord et ses partenaires.
+2. Copy the example environment file and update the credentials before use:
+   ```bash
+   cp .env.example .env
+   ```
+
+3. Start the CMS server:
+   ```bash
+   npm start
+   ```
+
+4. Open:
+   - admin: http://localhost:3000/admin
+   - public website: http://localhost:3000/
+
+## Default credentials
+
+The default values in `.env.example` are intentionally placeholders and must be changed before production use.
+
+- Communications Manager username: `communications-manager`
+- Communications Manager password: `change-me`
+- Administrator username: `administrator`
+- Administrator password: `change-me`
+
+## Storage model
+
+Content is saved to `data/store.json`.
+
+- `content`: active working content
+- `drafts`: saved drafts
+- `queue`: pending approval submissions
+- `approved`: approved content ready for launch
+
+Uploaded images are stored under `uploads/` and served at `/uploads/...`.
+
+## Launch workflow
+
+1. Communications Manager logs in to `/admin`
+2. Edits sections and saves drafts
+3. Uses Preview to view private updates
+4. Submits content for approval
+5. Administrator reviews and approves or rejects
+6. Approved content remains stored until WWF triggers the public launch
+
+This preserves the public site and prevents accidental publishing when content is edited.

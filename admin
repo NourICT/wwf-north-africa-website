@@ -6,25 +6,24 @@
     <title>WWF North Africa CMS</title>
     <style>
       :root {
-        --wwf-green: #2a6d36;
-        --wwf-dark: #1b2d1d;
-        --wwf-soft: #ecf3e7;
-        --wwf-accent: #d7ebce;
-        --wwf-gold: #d89a2d;
-        --wwf-white: #ffffff;
-        --wwf-border: #dfe8d9;
-        --wwf-text: #1b2a1e;
-        --wwf-red: #8a3a2d;
-        --shadow: 0 14px 40px rgba(16, 31, 19, 0.12);
+        --green: #1f5d32;
+        --green-dark: #123d22;
+        --green-soft: #edf6ee;
+        --line: #dfeae1;
+        --bg: #f4f7f2;
+        --text: #1a2b1d;
+        --muted: #5f7363;
+        --alert: #d76a58;
+        --gold: #d0a447;
+        --white: #ffffff;
       }
 
       * { box-sizing: border-box; }
-
-      html, body {
+      body {
         margin: 0;
         font-family: Arial, Helvetica, sans-serif;
-        background: linear-gradient(180deg, #f5f7f2 0%, #edf2ea 100%);
-        color: var(--wwf-text);
+        background: linear-gradient(180deg, #f5f8f4 0%, #edf2ed 100%);
+        color: var(--text);
       }
 
       button, input, textarea, select {
@@ -37,25 +36,23 @@
         min-height: 100vh;
         display: grid;
         place-items: center;
-        padding: 24px;
-        background: radial-gradient(circle at top, rgba(130, 184, 130, 0.18), transparent 40%),
-          linear-gradient(135deg, #f5f7f2, #edf3ee);
+        padding: 28px;
+        background: radial-gradient(circle at top, rgba(53, 118, 71, 0.12), transparent 40%);
       }
 
       .login-box {
-        width: min(520px, 100%);
-        background: rgba(255,255,255,0.9);
-        border: 1px solid var(--wwf-border);
+        width: min(560px, 100%);
+        background: rgba(255,255,255,0.94);
+        border: 1px solid var(--line);
         border-radius: 22px;
-        box-shadow: var(--shadow);
         padding: 32px 28px;
-        backdrop-filter: blur(8px);
+        box-shadow: 0 18px 38px rgba(15, 35, 22, 0.08);
       }
 
-      .brand-row {
+      .brand {
         display: flex;
         align-items: center;
-        gap: 16px;
+        gap: 14px;
         margin-bottom: 18px;
       }
 
@@ -63,36 +60,19 @@
         width: 54px;
         height: 54px;
         border-radius: 16px;
+        background: linear-gradient(135deg, var(--green), #4e8e52);
+        color: var(--white);
         display: grid;
         place-items: center;
         font-weight: 700;
-        background: linear-gradient(135deg, var(--wwf-green), #6da96a);
-        color: var(--wwf-white);
       }
 
-      .brand-mark.small {
-        width: 42px;
-        height: 42px;
-        font-size: 0.8rem;
-      }
+      h1, h2, h3, p { margin-top: 0; }
+      .muted { color: var(--muted); }
 
-      h1, h2, h3, h4, p {
-        margin-top: 0;
-      }
-
-      .muted {
-        color: #5d6e60;
-      }
-
-      .login-box h1 {
-        margin: 0;
-        font-size: clamp(1.7rem, 3vw, 2.2rem);
-      }
-
-      .login-box form {
+      form {
         display: grid;
         gap: 14px;
-        margin-top: 18px;
       }
 
       .field {
@@ -100,91 +80,65 @@
         gap: 8px;
       }
 
-      .field label {
-        font-weight: 600;
+      label {
         font-size: 0.95rem;
-      }
-
-      .field input,
-      .field textarea,
-      .field select {
-        width: 100%;
-        border: 1px solid var(--wwf-border);
-        background: white;
-        border-radius: 12px;
-        min-height: 46px;
-        padding: 10px 12px;
-        color: var(--wwf-text);
-      }
-
-      .field textarea {
-        min-height: 110px;
-        resize: vertical;
-      }
-
-      button {
-        border: none;
-        cursor: pointer;
-        transition: transform 0.15s ease, opacity 0.15s ease;
-      }
-
-      button:hover { transform: translateY(-1px); }
-
-      button:active { transform: translateY(0); }
-
-      .btn-primary {
-        background: linear-gradient(135deg, var(--wwf-green), #3d8d4b);
-        color: var(--wwf-white);
-        border-radius: 12px;
-        min-height: 48px;
         font-weight: 700;
       }
 
-      .btn-secondary {
-        background: var(--wwf-soft);
-        border: 1px solid var(--wwf-border);
-        color: var(--wwf-text);
-        border-radius: 12px;
+      input, textarea, select {
+        width: 100%;
         min-height: 46px;
-        font-weight: 600;
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        background: var(--white);
+        color: var(--text);
       }
 
+      textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      .btn {
+        border: 0;
+        border-radius: 12px;
+        min-height: 48px;
+        padding: 0 18px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.12s ease;
+      }
+
+      .btn:hover { transform: translateY(-1px); }
+      .btn-primary {
+        background: linear-gradient(135deg, var(--green), #4d8f53);
+        color: var(--white);
+      }
+      .btn-secondary {
+        background: var(--green-soft);
+        border: 1px solid var(--line);
+        color: var(--text);
+      }
       .btn-warning {
-        background: #fff4d7;
-        border: 1px solid #f0dca6;
-        color: #7a5a14;
-        border-radius: 12px;
-        min-height: 44px;
+        background: #fff1d1;
+        border: 1px solid #f0d6a2;
+        color: #7d5b15;
       }
-
       .btn-danger {
-        background: #fff0ee;
-        border: 1px solid #f0c7c2;
-        color: var(--wwf-red);
-        border-radius: 12px;
-        min-height: 44px;
-      }
-
-      .inline {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-      }
-
-      .card-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 16px;
+        background: #fff0ef;
+        border: 1px solid #f0c8c3;
+        color: var(--alert);
       }
 
       .layout {
-        min-height: 100vh;
         display: grid;
-        grid-template-columns: 280px 1fr;
+        grid-template-columns: 260px 1fr;
+        min-height: 100vh;
       }
 
       .sidebar {
-        background: linear-gradient(180deg, #173c21 0%, #133a1d 100%);
+        background: linear-gradient(180deg, var(--green-dark), var(--green));
         color: white;
         padding: 24px 18px;
       }
@@ -193,30 +147,36 @@
         display: flex;
         align-items: center;
         gap: 12px;
-        margin-bottom: 24px;
-        font-size: 1.1rem;
+        margin-bottom: 22px;
         font-weight: 700;
+      }
+
+      .sidebar .brand-mark {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        font-size: 0.8rem;
       }
 
       .nav {
         display: grid;
-        gap: 8px;
+        gap: 10px;
       }
 
       .nav button {
+        width: 100%;
+        border: 1px solid rgba(255,255,255,0.12);
         background: rgba(255,255,255,0.05);
-        color: white;
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 12px;
         min-height: 44px;
+        border-radius: 12px;
+        color: white;
         text-align: left;
         padding: 10px 12px;
-        font-weight: 600;
+        cursor: pointer;
       }
 
       .nav button.active {
         background: rgba(255,255,255,0.14);
-        border-color: rgba(255,255,255,0.2);
       }
 
       .content {
@@ -227,29 +187,29 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 16px;
-        margin-bottom: 18px;
+        gap: 14px;
+        margin-bottom: 20px;
         flex-wrap: wrap;
       }
 
       .topbar h2 {
         margin: 0;
-        font-size: clamp(1.5rem, 2vw, 2rem);
+        font-size: clamp(1.7rem, 2vw, 2.2rem);
       }
 
       .toolbar {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
         flex-wrap: wrap;
       }
 
       .panel {
-        background: rgba(255,255,255,0.82);
-        border: 1px solid var(--wwf-border);
+        background: rgba(255,255,255,0.9);
+        border: 1px solid var(--line);
         border-radius: 18px;
-        box-shadow: 0 8px 24px rgba(26, 46, 31, 0.07);
         padding: 20px;
+        box-shadow: 0 12px 24px rgba(18, 35, 23, 0.06);
         margin-bottom: 20px;
       }
 
@@ -260,9 +220,9 @@
       }
 
       .stat {
-        background: linear-gradient(135deg, #f7faf6, #eef7ed);
-        border: 1px solid var(--wwf-border);
-        border-radius: 16px;
+        background: linear-gradient(180deg, #f9faf8, #f2f7f3);
+        border: 1px solid var(--line);
+        border-radius: 14px;
         padding: 16px;
       }
 
@@ -272,174 +232,138 @@
         margin-top: 6px;
       }
 
-      .forms {
-        display: grid;
-        gap: 18px;
-      }
-
-      .section-block {
-        background: #f8faf8;
-        border: 1px solid var(--wwf-border);
-        border-radius: 16px;
-        padding: 18px;
-      }
-
-      .section-block h3 {
-        margin: 0 0 14px;
+      .section-head {
+        margin-bottom: 14px;
       }
 
       .two-col {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         gap: 16px;
       }
 
-      .image-uploader {
-        display: grid;
-        gap: 12px;
-      }
-
-      .image-drop {
-        border: 1.5px dashed #cadbc1;
-        border-radius: 14px;
-        background: #f7fbf7;
-        padding: 20px;
+      .section-block {
+        background: #f8faf8;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 18px;
+        margin-top: 16px;
       }
 
       .image-preview {
+        display: block;
         width: 100%;
         max-height: 220px;
         object-fit: cover;
         border-radius: 12px;
-        border: 1px solid var(--wwf-border);
-        display: block;
+        border: 1px solid var(--line);
+      }
+
+      .image-drop {
+        border: 1.5px dashed #cfdecf;
+        background: #f7fbf7;
+        border-radius: 12px;
+        padding: 16px;
       }
 
       .review-list {
         display: grid;
-        gap: 12px;
+        gap: 14px;
       }
 
       .review-item {
-        border: 1px solid var(--wwf-border);
+        border: 1px solid var(--line);
         border-radius: 12px;
-        padding: 14px;
         background: #fbfdfb;
+        padding: 16px;
       }
 
-      .review-item .meta {
+      .review-meta {
         display: flex;
         justify-content: space-between;
+        gap: 10px;
         align-items: center;
-        gap: 12px;
-        margin-bottom: 8px;
         flex-wrap: wrap;
+        margin-bottom: 8px;
       }
 
       .badge {
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         border-radius: 999px;
         padding: 6px 10px;
-        font-size: 0.76rem;
+        font-size: 0.75rem;
         font-weight: 700;
-        background: #edf6ec;
-        color: var(--wwf-green);
+        background: #edf7ee;
+        color: var(--green);
       }
 
-      .badge.pending {
-        background: #fff4d7;
-        color: #8c6708;
-      }
-
-      .badge.approved {
-        background: #ebf8ef;
-        color: #1e6e35;
-      }
+      .badge.pending { background: #fff4d7; color: #7d5b15; }
 
       .small-note {
         font-size: 0.82rem;
-        color: #60705f;
+        color: var(--muted);
       }
 
       .toast {
         position: fixed;
-        right: 22px;
-        bottom: 22px;
+        right: 24px;
+        bottom: 24px;
+        background: var(--green-dark);
+        color: white;
         padding: 12px 16px;
         border-radius: 12px;
-        background: var(--wwf-dark);
-        color: white;
-        box-shadow: var(--shadow);
+        box-shadow: 0 16px 30px rgba(12, 28, 18, 0.18);
         display: none;
       }
 
       .toast.show {
         display: block;
-        animation: slideUp 0.2s ease;
+        animation: slide 0.2s ease;
       }
 
-      @keyframes slideUp {
+      @keyframes slide {
         from { transform: translateY(10px); opacity: 0; }
         to { transform: translateY(0); opacity: 1; }
       }
 
-      @media (max-width: 840px) {
-        .layout {
-          grid-template-columns: 1fr;
-        }
-
-        .sidebar {
-          padding-bottom: 12px;
-        }
-
-        .content {
-          padding: 18px;
-        }
+      @media (max-width: 860px) {
+        .layout { grid-template-columns: 1fr; }
+        .sidebar { padding-bottom: 10px; }
+        .content { padding: 18px; }
       }
     </style>
   </head>
   <body>
     <div id="loginScreen" class="login-shell">
       <div class="login-box">
-        <div class="brand-row">
+        <div class="brand">
           <div class="brand-mark">WWF</div>
           <div>
             <h1>CMS Portal</h1>
-            <p class="muted">WWF North Africa — Independent pre-launch content system</p>
+            <p class="muted">WWF North Africa — pre-launch content management</p>
           </div>
-        </div>
-
-        <div id="setupPanel" class="hidden">
-          <h3>Set local access</h3>
-          <p class="small-note">Create the local passwords for the Communications Manager and Administrator. These are stored in the browser only for this prototype.</p>
-          <form id="setupForm">
-            <div class="field">
-              <label for="managerPassword">Communications Manager password</label>
-              <input id="managerPassword" type="password" required />
-            </div>
-            <div class="field">
-              <label for="adminPassword">Administrator password</label>
-              <input id="adminPassword" type="password" required />
-            </div>
-            <button class="btn-primary" type="submit">Save access settings</button>
-          </form>
         </div>
 
         <div id="loginPanel">
           <form id="loginForm">
             <div class="field">
-              <label for="roleSelect">Role</label>
-              <select id="roleSelect">
+              <label for="role">Role</label>
+              <select id="role">
                 <option value="manager">Communications Manager</option>
                 <option value="admin">Administrator</option>
               </select>
             </div>
             <div class="field">
-              <label for="loginPassword">Password</label>
-              <input id="loginPassword" type="password" placeholder="Enter your password" required />
+              <label for="username">Username</label>
+              <input id="username" type="text" autocomplete="username" required />
             </div>
-            <button class="btn-primary" type="submit">Access dashboard</button>
+            <div class="field">
+              <label for="password">Password</label>
+              <input id="password" type="password" autocomplete="current-password" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Open dashboard</button>
           </form>
         </div>
       </div>
@@ -448,29 +372,29 @@
     <div id="appScreen" class="layout hidden">
       <aside class="sidebar">
         <div class="brand">
-          <div class="brand-mark small">WWF</div>
+          <div class="brand-mark">WWF</div>
           <span>North Africa</span>
         </div>
-        <div class="nav" id="navButtons"></div>
+        <div id="nav" class="nav"></div>
         <div style="margin-top: 20px;">
-          <button id="logoutBtn" class="btn-secondary" style="width: 100%;">Log out</button>
+          <button id="logoutBtn" class="btn btn-secondary" style="width: 100%;">Log out</button>
         </div>
       </aside>
 
       <main class="content">
         <div class="topbar">
           <h2 id="pageTitle">Dashboard</h2>
-          <div class="toolbar" id="toolbar"></div>
+          <div id="toolbar" class="toolbar"></div>
         </div>
 
-        <section id="dashboardOverview" class="panel">
+        <section class="panel">
           <div class="stats">
             <div class="stat">
               <span class="muted">Current role</span>
               <strong id="currentRole">-</strong>
             </div>
             <div class="stat">
-              <span class="muted">Saved drafts</span>
+              <span class="muted">Drafts</span>
               <strong id="draftCount">0</strong>
             </div>
             <div class="stat">
@@ -478,15 +402,13 @@
               <strong id="queueCount">0</strong>
             </div>
             <div class="stat">
-              <span class="muted">Last saved</span>
+              <span class="muted">Last updated</span>
               <strong id="lastSaved">-</strong>
             </div>
           </div>
         </section>
 
-        <section id="formPanel" class="panel">
-          <form id="contentForm" class="forms"></form>
-        </section>
+        <section id="formPanel" class="panel"></section>
 
         <section id="reviewPanel" class="panel hidden">
           <h3>Approval queue</h3>
@@ -498,58 +420,6 @@
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <script>
-      const STORAGE_CONFIG = 'wwf-na-cms-config';
-      const STORAGE_CONTENT = 'wwf-na-cms-content';
-      const STORAGE_DRAFTS = 'wwf-na-cms-drafts';
-      const STORAGE_QUEUE = 'wwf-na-cms-queue';
-      const STORAGE_APPROVED = 'wwf-na-cms-approved';
-      const STORAGE_SESSION = 'wwf-na-cms-session';
-
-      const defaultContent = {
-        home: {
-          title: 'Together for a living Tunisia',
-          subtitle: 'Protecting nature, empowering communities, and advancing a sustainable future for North Africa.',
-          heroImage: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80'
-        },
-        about: {
-          mission: 'To stop the degradation of the natural environment and build a future in which people live in harmony with nature.',
-          vision: 'A healthy, resilient region where people and nature thrive together.',
-          summary: 'WWF North Africa works with communities, institutions, and partners to preserve biodiversity, restore ecosystems, and improve livelihoods.'
-        },
-        projects: [
-          { title: 'Marine conservation', summary: 'Protecting coastal ecosystems and supporting fishing communities.', image: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=900&q=80' },
-          { title: 'Freshwater restoration', summary: 'Improving water stewardship and ecosystem resilience across priority basins.', image: 'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=900&q=80' },
-          { title: 'Climate adaptation', summary: 'Helping communities respond to climate risks and environmental change.', image: 'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=900&q=80' }
-        ],
-        news: [
-          { headline: 'Community-led restoration in action', summary: 'Local actors are restoring wetlands and strengthening a network of nature-positive practices.', date: '2026-10-30', image: 'https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?auto=format&fit=crop&w=900&q=80' },
-          { headline: 'New partnership expands field support', summary: 'Collaborations with local institutions are improving outreach and on-the-ground action.', date: '2026-09-15', image: 'https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=900&q=80' }
-        ],
-        team: [
-          { name: 'Jamel Jrijer', role: 'Director', focus: 'Programme leadership and institutional partnerships.' },
-          { name: 'Intissar Ferjani', role: 'People & Culture Manager', focus: 'Capacity building, staff development and internal engagement.' },
-          { name: 'Amina Ben Ali', role: 'Field Programme Lead', focus: 'Operational delivery and field coordination.' }
-        ],
-        partners: [
-          'ANPE',
-          'Direction Générale des Forêts',
-          'Attijari Bank',
-          'Zitouna Tamkeen'
-        ],
-        contact: {
-          email: 'contact@wwfna.org',
-          phone: '+216 00 000 000',
-          address: '5 Rue Ibn El Monadi, El Menzah 1, 1004 Tunis',
-          facebook: 'https://www.facebook.com',
-          instagram: 'https://www.instagram.com',
-          linkedin: 'https://www.linkedin.com'
-        },
-        downloads: [
-          { name: 'WWF-NA grievance form', url: 'WWF-NA-grievance-form.pdf' },
-          { name: 'WWF-NA grievance mechanism', url: 'WWF-NA-grievance-mechanism.pdf' }
-        ]
-      };
-
       const sectionOrder = [
         { key: 'home', label: 'Homepage' },
         { key: 'about', label: 'About WWF' },
@@ -561,116 +431,97 @@
         { key: 'downloads', label: 'Downloads' }
       ];
 
-      const state = {
-        currentSection: 'home',
-        currentRole: 'manager',
-        config: getStorage(STORAGE_CONFIG, { managerPassword: '', adminPassword: '' }),
-        content: getStorage(STORAGE_CONTENT, defaultContent),
-        drafts: getStorage(STORAGE_DRAFTS, []),
-        queue: getStorage(STORAGE_QUEUE, []),
-        approved: getStorage(STORAGE_APPROVED, defaultContent),
-        session: getStorage(STORAGE_SESSION, null)
-      };
+      let currentSection = 'home';
+      let currentUser = null;
+      let content = {};
+      let drafts = [];
+      let queue = [];
+      let approved = {};
 
       const loginScreen = document.getElementById('loginScreen');
       const appScreen = document.getElementById('appScreen');
-      const loginPanel = document.getElementById('loginPanel');
-      const setupPanel = document.getElementById('setupPanel');
-      const loginForm = document.getElementById('loginForm');
-      const setupForm = document.getElementById('setupForm');
-      const roleSelect = document.getElementById('roleSelect');
-      const pageTitle = document.getElementById('pageTitle');
       const formPanel = document.getElementById('formPanel');
       const reviewPanel = document.getElementById('reviewPanel');
-      const navButtons = document.getElementById('navButtons');
-      const formEl = document.getElementById('contentForm');
       const reviewList = document.getElementById('reviewList');
-
-      function getStorage(key, fallback) {
-        try {
-          const raw = localStorage.getItem(key);
-          return raw ? JSON.parse(raw) : fallback;
-        } catch (error) {
-          return fallback;
-        }
-      }
-
-      function setStorage(key, value) {
-        localStorage.setItem(key, JSON.stringify(value));
-      }
+      const nav = document.getElementById('nav');
 
       function showToast(message) {
         const toast = document.getElementById('toast');
         toast.textContent = message;
         toast.classList.add('show');
-        clearTimeout(showToast.timeoutId);
-        showToast.timeoutId = setTimeout(() => toast.classList.remove('show'), 2200);
-      }
-
-      function isSetupComplete() {
-        return Boolean(state.config.managerPassword && state.config.adminPassword);
-      }
-
-      function renderLoginState() {
-        const showSetup = !isSetupComplete();
-        setupPanel.classList.toggle('hidden', !showSetup);
-        loginPanel.classList.toggle('hidden', showSetup);
-        if (showSetup) {
-          document.getElementById('managerPassword').value = '';
-          document.getElementById('adminPassword').value = '';
-        }
-      }
-
-      function persistState() {
-        setStorage(STORAGE_CONFIG, state.config);
-        setStorage(STORAGE_CONTENT, state.content);
-        setStorage(STORAGE_DRAFTS, state.drafts);
-        setStorage(STORAGE_QUEUE, state.queue);
-        setStorage(STORAGE_APPROVED, state.approved);
-        setStorage(STORAGE_SESSION, state.session);
-      }
-
-      function updateStats() {
-        document.getElementById('draftCount').textContent = state.drafts.length;
-        document.getElementById('queueCount').textContent = state.queue.filter(item => item.status === 'pending').length;
-        document.getElementById('lastSaved').textContent = state.content.lastSaved ? new Date(state.content.lastSaved).toLocaleString() : '—';
-        document.getElementById('currentRole').textContent = state.currentRole === 'admin' ? 'Administrator' : 'Communications Manager';
+        clearTimeout(showToast.timer);
+        showToast.timer = setTimeout(() => toast.classList.remove('show'), 2200);
       }
 
       function escapeHtml(value) {
         return String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
       }
 
-      function toDataUrl(file) {
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(reader.result);
-          reader.onerror = reject;
-          reader.readAsDataURL(file);
+      function setCurrentUser(user) {
+        currentUser = user;
+        document.getElementById('currentRole').textContent = user && user.role === 'admin' ? 'Administrator' : 'Communications Manager';
+      }
+
+      async function getJson(url, options = {}) {
+        const response = await fetch(url, {
+          headers: { 'Content-Type': 'application/json' },
+          ...options
         });
+        const json = await response.json();
+        if (!response.ok) throw new Error(json.error || 'Request failed.');
+        return json;
+      }
+
+      async function loadContent() {
+        const data = await getJson('/api/content');
+        content = data.content || {};
+        approved = data.approved || {};
+        updateStats();
+        render();
+      }
+
+      async function loadDrafts() {
+        const data = await getJson('/api/drafts');
+        drafts = data.drafts || [];
+        updateStats();
+      }
+
+      async function loadQueue() {
+        if (!currentUser || currentUser.role !== 'admin') return;
+        const data = await getJson('/api/queue');
+        queue = data.queue || [];
+        renderReviewQueue();
+        updateStats();
+      }
+
+      function updateStats() {
+        document.getElementById('draftCount').textContent = drafts.length;
+        document.getElementById('queueCount').textContent = queue.length || 0;
+        const savedValue = content && content.lastSaved ? new Date(content.lastSaved).toLocaleString() : '-';
+        document.getElementById('lastSaved').textContent = savedValue;
       }
 
       function renderNav() {
-        navButtons.innerHTML = '';
+        nav.innerHTML = '';
         sectionOrder.forEach((section) => {
-          const button = document.createElement('button');
-          button.type = 'button';
-          button.textContent = section.label;
-          button.className = section.key === state.currentSection ? 'active' : '';
-          button.addEventListener('click', () => {
-            state.currentSection = section.key;
-            renderSection();
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.textContent = section.label;
+          btn.className = section.key === currentSection ? 'active' : '';
+          btn.addEventListener('click', () => {
+            currentSection = section.key;
+            render();
           });
-          navButtons.appendChild(button);
+          nav.appendChild(btn);
         });
       }
 
-      function renderSection() {
-        const section = sectionOrder.find(item => item.key === state.currentSection) || sectionOrder[0];
-        pageTitle.textContent = section.label;
+      function render() {
+        const section = sectionOrder.find((item) => item.key === currentSection) || sectionOrder[0];
+        document.getElementById('pageTitle').textContent = section.label;
         renderNav();
-        formEl.innerHTML = buildSectionForm(section.key);
         renderToolbar();
+        formPanel.innerHTML = buildFormForSection(section.key);
         renderReviewQueue();
       }
 
@@ -680,537 +531,460 @@
 
         const saveBtn = document.createElement('button');
         saveBtn.type = 'button';
-        saveBtn.className = 'btn-secondary';
+        saveBtn.className = 'btn btn-secondary';
         saveBtn.textContent = 'Save draft';
-        saveBtn.addEventListener('click', () => saveDraft());
+        saveBtn.addEventListener('click', saveDraft);
         toolbar.appendChild(saveBtn);
 
         const previewBtn = document.createElement('button');
         previewBtn.type = 'button';
-        previewBtn.className = 'btn-secondary';
+        previewBtn.className = 'btn btn-secondary';
         previewBtn.textContent = 'Preview';
-        previewBtn.addEventListener('click', () => previewContent());
+        previewBtn.addEventListener('click', previewContent);
         toolbar.appendChild(previewBtn);
 
-        if (state.currentRole === 'manager') {
+        if (currentUser && currentUser.role === 'manager') {
           const submitBtn = document.createElement('button');
           submitBtn.type = 'button';
-          submitBtn.className = 'btn-primary';
+          submitBtn.className = 'btn btn-primary';
           submitBtn.textContent = 'Submit for approval';
-          submitBtn.addEventListener('click', () => submitForApproval());
+          submitBtn.addEventListener('click', submitApproval);
           toolbar.appendChild(submitBtn);
         }
-
-        const roleBtn = document.createElement('button');
-        roleBtn.type = 'button';
-        roleBtn.className = 'btn-warning';
-        roleBtn.textContent = state.currentRole === 'admin' ? 'Working as Admin' : 'Working as Manager';
-        roleBtn.addEventListener('click', () => {
-          state.currentRole = state.currentRole === 'admin' ? 'manager' : 'admin';
-          renderSection();
-          updateStats();
-        });
-        toolbar.appendChild(roleBtn);
       }
 
-      function buildSectionForm(sectionKey) {
-        const content = state.content;
-
-        if (sectionKey === 'home') {
+      function buildFormForSection(key) {
+        if (key === 'home') {
           return `
+            <div class="section-head"><h3>Homepage</h3></div>
+            <div class="two-col">
+              <div class="field">
+                <label>Hero title</label>
+                <input name="home.title" value="${escapeHtml(content.home?.title || '')}" />
+              </div>
+              <div class="field">
+                <label>Hero image URL</label>
+                <input name="home.heroImage" value="${escapeHtml(content.home?.heroImage || '')}" />
+              </div>
+            </div>
             <div class="section-block">
-              <h3>Homepage</h3>
-              <div class="two-col">
-                <div class="field">
-                  <label>Hero title</label>
-                  <input name="home.title" value="${escapeHtml(content.home.title)}" />
-                </div>
-                <div class="field">
-                  <label>Hero image URL</label>
-                  <input name="home.heroImage" value="${escapeHtml(content.home.heroImage)}" />
-                </div>
-              </div>
-              <div class="field" style="margin-top: 16px;">
+              <div class="field">
                 <label>Subtitle</label>
-                <textarea name="home.subtitle">${escapeHtml(content.home.subtitle)}</textarea>
-              </div>
-              <div class="image-uploader" style="margin-top: 16px;">
-                <div class="image-drop">
-                  <label class="small-note">Upload a new homepage image</label>
-                  <input type="file" accept="image/*" data-image-field="home.heroImage" />
-                </div>
-                <img class="image-preview" src="${escapeHtml(content.home.heroImage)}" alt="Homepage preview" onerror="this.style.display='none'" />
+                <textarea name="home.subtitle">${escapeHtml(content.home?.subtitle || '')}</textarea>
               </div>
             </div>
           `;
         }
 
-        if (sectionKey === 'about') {
+        if (key === 'about') {
           return `
+            <div class="section-head"><h3>About WWF</h3></div>
             <div class="section-block">
-              <h3>About WWF</h3>
               <div class="field">
                 <label>Mission</label>
-                <textarea name="about.mission">${escapeHtml(content.about.mission)}</textarea>
+                <textarea name="about.mission">${escapeHtml(content.about?.mission || '')}</textarea>
               </div>
               <div class="field">
                 <label>Vision</label>
-                <textarea name="about.vision">${escapeHtml(content.about.vision)}</textarea>
+                <textarea name="about.vision">${escapeHtml(content.about?.vision || '')}</textarea>
               </div>
               <div class="field">
                 <label>Summary</label>
-                <textarea name="about.summary">${escapeHtml(content.about.summary)}</textarea>
+                <textarea name="about.summary">${escapeHtml(content.about?.summary || '')}</textarea>
               </div>
             </div>
           `;
         }
 
-        if (sectionKey === 'projects') {
+        if (key === 'projects') {
+          const projects = content.projects || [];
           return `
-            <div class="section-block">
-              <h3>Projects and initiatives</h3>
-              ${content.projects.map((project, index) => `
-                <div class="two-col" style="margin-top: 18px; border-top: 1px solid var(--wwf-border); padding-top: 18px;">
+            <div class="section-head"><h3>Projects</h3></div>
+            ${projects.map((project, index) => `
+              <div class="section-block">
+                <div class="two-col">
                   <div class="field">
-                    <label>Project ${index + 1} title</label>
-                    <input name="projects.${index}.title" value="${escapeHtml(project.title)}" />
+                    <label>Title</label>
+                    <input name="projects.${index}.title" value="${escapeHtml(project.title || '')}" />
                   </div>
                   <div class="field">
-                    <label>Project ${index + 1} image URL</label>
-                    <input name="projects.${index}.image" value="${escapeHtml(project.image)}" />
-                  </div>
-                  <div class="field" style="grid-column: 1 / -1;">
-                    <label>Description</label>
-                    <textarea name="projects.${index}.summary">${escapeHtml(project.summary)}</textarea>
-                  </div>
-                  <div style="grid-column: 1 / -1;" class="image-uploader">
-                    <div class="image-drop">
-                      <label class="small-note">Replace project image</label>
-                      <input type="file" accept="image/*" data-image-field="projects.${index}.image" />
-                    </div>
-                    <img class="image-preview" src="${escapeHtml(project.image)}" alt="Project image" onerror="this.style.display='none'" />
+                    <label>Image URL</label>
+                    <input name="projects.${index}.image" value="${escapeHtml(project.image || '')}" />
                   </div>
                 </div>
-              `).join('')}
-            </div>
+                <div class="field" style="margin-top: 12px;">
+                  <label>Summary</label>
+                  <textarea name="projects.${index}.summary">${escapeHtml(project.summary || '')}</textarea>
+                </div>
+              </div>
+            `).join('') || '<div class="section-block"><p class="muted">No project entries yet.</p></div>'}
           `;
         }
 
-        if (sectionKey === 'news') {
+        if (key === 'news') {
+          const news = content.news || [];
           return `
-            <div class="section-block">
-              <h3>News and publications</h3>
-              ${content.news.map((item, index) => `
-                <div class="two-col" style="margin-top: 18px; border-top: 1px solid var(--wwf-border); padding-top: 18px;">
+            <div class="section-head"><h3>News and publications</h3></div>
+            ${news.map((item, index) => `
+              <div class="section-block">
+                <div class="two-col">
                   <div class="field">
-                    <label>Headline ${index + 1}</label>
-                    <input name="news.${index}.headline" value="${escapeHtml(item.headline)}" />
+                    <label>Headline</label>
+                    <input name="news.${index}.headline" value="${escapeHtml(item.headline || '')}" />
                   </div>
                   <div class="field">
                     <label>Date</label>
-                    <input name="news.${index}.date" type="date" value="${escapeHtml(item.date)}" />
-                  </div>
-                  <div class="field" style="grid-column: 1 / -1;">
-                    <label>Summary</label>
-                    <textarea name="news.${index}.summary">${escapeHtml(item.summary)}</textarea>
-                  </div>
-                  <div class="field" style="grid-column: 1 / -1;">
-                    <label>Image URL</label>
-                    <input name="news.${index}.image" value="${escapeHtml(item.image)}" />
-                  </div>
-                  <div style="grid-column: 1 / -1;" class="image-uploader">
-                    <div class="image-drop">
-                      <label class="small-note">Upload new image</label>
-                      <input type="file" accept="image/*" data-image-field="news.${index}.image" />
-                    </div>
-                    <img class="image-preview" src="${escapeHtml(item.image)}" alt="News image" onerror="this.style.display='none'" />
+                    <input type="date" name="news.${index}.date" value="${escapeHtml(item.date || '')}" />
                   </div>
                 </div>
-              `).join('')}
-            </div>
+                <div class="field" style="margin-top: 12px;">
+                  <label>Summary</label>
+                  <textarea name="news.${index}.summary">${escapeHtml(item.summary || '')}</textarea>
+                </div>
+                <div class="field" style="margin-top: 12px;">
+                  <label>Image URL</label>
+                  <input name="news.${index}.image" value="${escapeHtml(item.image || '')}" />
+                </div>
+              </div>
+            `).join('') || '<div class="section-block"><p class="muted">No news entries yet.</p></div>'}
           `;
         }
 
-        if (sectionKey === 'team') {
+        if (key === 'team') {
+          const team = content.team || [];
           return `
-            <div class="section-block">
-              <h3>Team member profiles</h3>
-              ${content.team.map((person, index) => `
-                <div class="two-col" style="margin-top: 18px; border-top: 1px solid var(--wwf-border); padding-top: 18px;">
+            <div class="section-head"><h3>Team</h3></div>
+            ${team.map((person, index) => `
+              <div class="section-block">
+                <div class="two-col">
                   <div class="field">
                     <label>Name</label>
-                    <input name="team.${index}.name" value="${escapeHtml(person.name)}" />
+                    <input name="team.${index}.name" value="${escapeHtml(person.name || '')}" />
                   </div>
                   <div class="field">
                     <label>Role</label>
-                    <input name="team.${index}.role" value="${escapeHtml(person.role)}" />
-                  </div>
-                  <div class="field" style="grid-column: 1 / -1;">
-                    <label>Focus area</label>
-                    <textarea name="team.${index}.focus">${escapeHtml(person.focus)}</textarea>
+                    <input name="team.${index}.role" value="${escapeHtml(person.role || '')}" />
                   </div>
                 </div>
-              `).join('')}
-            </div>
+                <div class="field" style="margin-top: 12px;">
+                  <label>Focus</label>
+                  <textarea name="team.${index}.focus">${escapeHtml(person.focus || '')}</textarea>
+                </div>
+              </div>
+            `).join('') || '<div class="section-block"><p class="muted">No team members yet.</p></div>'}
           `;
         }
 
-        if (sectionKey === 'partners') {
+        if (key === 'partners') {
           return `
+            <div class="section-head"><h3>Partners and institutions</h3></div>
             <div class="section-block">
-              <h3>Partners and institutions</h3>
               <div class="field">
-                <label>Partner list</label>
-                <textarea name="partners">${escapeHtml(content.partners.join('\n'))}</textarea>
+                <label>Partner names (one per line)</label>
+                <textarea name="partners">${escapeHtml((content.partners || []).join('\n'))}</textarea>
               </div>
             </div>
           `;
         }
 
-        if (sectionKey === 'contact') {
+        if (key === 'contact') {
           return `
+            <div class="section-head"><h3>Contact details</h3></div>
             <div class="section-block">
-              <h3>Contact details and social links</h3>
               <div class="two-col">
                 <div class="field">
                   <label>Email</label>
-                  <input name="contact.email" value="${escapeHtml(content.contact.email)}" />
+                  <input name="contact.email" value="${escapeHtml(content.contact?.email || '')}" />
                 </div>
                 <div class="field">
                   <label>Phone</label>
-                  <input name="contact.phone" value="${escapeHtml(content.contact.phone)}" />
+                  <input name="contact.phone" value="${escapeHtml(content.contact?.phone || '')}" />
                 </div>
                 <div class="field" style="grid-column: 1 / -1;">
                   <label>Address</label>
-                  <textarea name="contact.address">${escapeHtml(content.contact.address)}</textarea>
+                  <textarea name="contact.address">${escapeHtml(content.contact?.address || '')}</textarea>
                 </div>
                 <div class="field">
                   <label>Facebook</label>
-                  <input name="contact.facebook" value="${escapeHtml(content.contact.facebook)}" />
+                  <input name="contact.facebook" value="${escapeHtml(content.contact?.facebook || '')}" />
                 </div>
                 <div class="field">
                   <label>Instagram</label>
-                  <input name="contact.instagram" value="${escapeHtml(content.contact.instagram)}" />
+                  <input name="contact.instagram" value="${escapeHtml(content.contact?.instagram || '')}" />
                 </div>
                 <div class="field">
                   <label>LinkedIn</label>
-                  <input name="contact.linkedin" value="${escapeHtml(content.contact.linkedin)}" />
+                  <input name="contact.linkedin" value="${escapeHtml(content.contact?.linkedin || '')}" />
                 </div>
               </div>
             </div>
           `;
         }
 
-        if (sectionKey === 'downloads') {
+        if (key === 'downloads') {
+          const downloads = content.downloads || [];
           return `
-            <div class="section-block">
-              <h3>Downloadable reports and PDF documents</h3>
-              ${content.downloads.map((item, index) => `
-                <div class="two-col" style="margin-top: 18px; border-top: 1px solid var(--wwf-border); padding-top: 18px;">
+            <div class="section-head"><h3>Downloadable documents</h3></div>
+            ${downloads.map((file, index) => `
+              <div class="section-block">
+                <div class="two-col">
                   <div class="field">
-                    <label>Document title</label>
-                    <input name="downloads.${index}.name" value="${escapeHtml(item.name)}" />
+                    <label>Name</label>
+                    <input name="downloads.${index}.name" value="${escapeHtml(file.name || '')}" />
                   </div>
                   <div class="field">
-                    <label>File URL</label>
-                    <input name="downloads.${index}.url" value="${escapeHtml(item.url)}" />
+                    <label>URL</label>
+                    <input name="downloads.${index}.url" value="${escapeHtml(file.url || '')}" />
                   </div>
                 </div>
-              `).join('')}
-            </div>
+              </div>
+            `).join('') || '<div class="section-block"><p class="muted">No documents yet.</p></div>'}
           `;
         }
 
         return '';
       }
 
-      function parseFormData(sectionKey) {
-        const form = document.getElementById('contentForm');
-        const formData = new FormData(form);
-        const result = JSON.parse(JSON.stringify(state.content));
+      function parseFormData() {
+        const form = formPanel.querySelector('form');
+        if (!form) return JSON.parse(JSON.stringify(content));
 
-        function setDeep(obj, keys, value) {
-          let pointer = obj;
-          for (let i = 0; i < keys.length - 1; i++) {
-            const key = keys[i];
-            if (key === '') continue;
-            if (!pointer[key]) pointer[key] = {};
-            pointer = pointer[key];
+        const formData = new FormData(form);
+        const output = JSON.parse(JSON.stringify(content));
+
+        const updateNested = (obj, path, value) => {
+          let current = obj;
+          for (let i = 0; i < path.length - 1; i += 1) {
+            const key = path[i];
+            if (!current[key]) current[key] = {};
+            current = current[key];
           }
-          pointer[keys[keys.length - 1]] = value;
-        }
+          current[path[path.length - 1]] = value;
+        };
 
         for (const [key, value] of formData.entries()) {
-          if (!key || key === 'partners') continue;
-          const path = key.split('.');
-          if (path[0] === 'projects' || path[0] === 'news' || path[0] === 'team' || path[0] === 'downloads') {
-            const index = Number(path[1]);
-            const field = path[2];
-            if (!Number.isNaN(index) && field) {
-              if (!result[path[0]][index]) result[path[0]][index] = {};
-              result[path[0]][index][field] = value;
+          if (key === 'partners') {
+            output.partners = value.split('\n').map((item) => item.trim()).filter(Boolean);
+            continue;
+          }
+
+          const segments = key.split('.');
+          const first = segments[0];
+          if (['home', 'about', 'contact'].includes(first)) {
+            updateNested(output, segments, value);
+            continue;
+          }
+
+          if (['projects', 'news', 'team', 'downloads'].includes(first)) {
+            const listIndex = Number(segments[1]);
+            const fieldName = segments[2];
+            if (!Number.isNaN(listIndex) && fieldName) {
+              if (!output[first]) output[first] = [];
+              if (!output[first][listIndex]) output[first][listIndex] = {};
+              output[first][listIndex][fieldName] = value;
             }
-          } else if (path[0] === 'home' || path[0] === 'about' || path[0] === 'contact') {
-            setDeep(result, path, value);
           }
         }
 
-        if (formData.has('partners')) {
-          const partnerText = formData.get('partners');
-          result.partners = String(partnerText || '').split('\n').map(item => item.trim()).filter(Boolean);
-        }
-
-        if (sectionKey === 'home') {
-          result.home = { ...result.home, ...{ title: formData.get('home.title') || result.home.title, subtitle: formData.get('home.subtitle') || result.home.subtitle, heroImage: formData.get('home.heroImage') || result.home.heroImage } };
-        }
-
-        return result;
+        return output;
       }
 
-      function saveDraft() {
-        const nextContent = parseFormData(state.currentSection);
-        nextContent.lastSaved = new Date().toISOString();
-        state.content = nextContent;
-        state.drafts.push({ id: crypto.randomUUID(), savedAt: new Date().toISOString(), content: JSON.parse(JSON.stringify(nextContent)) });
-        persistState();
-        updateStats();
-        renderReviewQueue();
+      async function saveDraft() {
+        const next = parseFormData();
+        next.lastSaved = new Date().toISOString();
+        content = next;
+        await getJson('/api/draft', {
+          method: 'POST',
+          body: JSON.stringify({ content: next }),
+        });
+        await loadDrafts();
+        await reloadContent();
         showToast('Draft saved successfully.');
       }
 
-      function previewContent() {
-        const previewData = parseFormData(state.currentSection);
-        const html = `
-          <!DOCTYPE html>
-          <html lang="en">
-            <head>
-              <meta charset="UTF-8" />
-              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-              <title>WWF NA Preview</title>
-              <style>
-                body { font-family: Arial, sans-serif; margin: 0; background: #f3f5f1; color: #1d2b1d; }
-                .wrap { max-width: 1100px; margin: 0 auto; padding: 32px 18px 60px; }
-                .hero { background: linear-gradient(135deg, #1f5a2d, #7da86d); color: white; border-radius: 18px; padding: 32px; }
-                .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 20px; }
-                .card { background: white; border-radius: 16px; padding: 18px; box-shadow: 0 12px 22px rgba(0,0,0,0.05); }
-                img { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; }
-                h1, h2, h3 { margin-top: 0; }
-              </style>
-            </head>
-            <body>
-              <div class="wrap">
-                <div class="hero">
-                  <h1>${escapeHtml(previewData.home.title)}</h1>
-                  <p>${escapeHtml(previewData.home.subtitle)}</p>
-                </div>
-                <div class="grid" style="margin-top: 28px;">
-                  <div class="card">
-                    <h2>Mission</h2>
-                    <p>${escapeHtml(previewData.about.mission)}</p>
-                  </div>
-                  <div class="card">
-                    <h2>Vision</h2>
-                    <p>${escapeHtml(previewData.about.vision)}</p>
-                  </div>
-                </div>
-                <div style="margin-top: 28px;">
-                  <h2>Featured projects</h2>
-                  <div class="grid">
-                    ${previewData.projects.map(project => `
-                      <div class="card">
-                        <img src="${escapeHtml(project.image)}" alt="${escapeHtml(project.title)}" />
-                        <h3>${escapeHtml(project.title)}</h3>
-                        <p>${escapeHtml(project.summary)}</p>
-                      </div>
-                    `).join('')}
-                  </div>
-                </div>
-              </div>
-            </body>
-          </html>
-        `;
-
-        const previewWindow = window.open('', '_blank', 'noopener');
-        previewWindow.document.write(html);
-        previewWindow.document.close();
-        showToast('Private preview opened in a new tab.');
-      }
-
-      function submitForApproval() {
-        const nextContent = parseFormData(state.currentSection);
-        nextContent.lastSaved = new Date().toISOString();
-        state.content = nextContent;
-
-        const submission = {
-          id: crypto.randomUUID(),
-          submittedAt: new Date().toISOString(),
-          status: 'pending',
-          role: 'manager',
-          content: JSON.parse(JSON.stringify(nextContent))
-        };
-
-        state.queue.push(submission);
-        persistState();
-        updateStats();
-        renderReviewQueue();
-        showToast('Submitted for Administrator review.');
+      async function submitApproval() {
+        const next = parseFormData();
+        next.lastSaved = new Date().toISOString();
+        content = next;
+        await getJson('/api/submit', {
+          method: 'POST',
+          body: JSON.stringify({ content: next })
+        });
+        await loadQueue();
+        await reloadContent();
+        showToast('Submitted to the Administrator for approval.');
       }
 
       function renderReviewQueue() {
-        const queue = state.queue.filter(item => item.status === 'pending');
-        reviewList.innerHTML = '';
-
-        if (state.currentRole !== 'admin' && queue.length === 0) {
+        if (!currentUser || currentUser.role !== 'admin') {
           reviewPanel.classList.add('hidden');
           return;
         }
 
         reviewPanel.classList.remove('hidden');
+        reviewList.innerHTML = '';
 
         if (queue.length === 0) {
-          reviewList.innerHTML = '<p class="muted">No pending submissions. Approved content is ready for the launch team when WWF is ready to publish.</p>';
+          reviewList.innerHTML = '<p class="muted">No pending approvals. Approved content is ready for launch when WWF decides to publish.</p>';
           return;
         }
 
         queue.forEach((item) => {
-          const div = document.createElement('div');
-          div.className = 'review-item';
-          div.innerHTML = `
-            <div class="meta">
-              <strong>Submission ${new Date(item.submittedAt).toLocaleDateString()}</strong>
-              <span class="badge pending">Pending approval</span>
+          const card = document.createElement('div');
+          card.className = 'review-item';
+          card.innerHTML = `
+            <div class="review-meta">
+              <strong>${new Date(item.createdAt).toLocaleString()}</strong>
+              <span class="badge pending">Pending</span>
             </div>
-            <div class="small-note">Content snapshot prepared by the Communications Manager</div>
-            <div class="inline" style="margin-top: 12px;">
-              <button class="btn-primary" data-approve="${item.id}" type="button">Approve</button>
-              <button class="btn-danger" data-reject="${item.id}" type="button">Reject</button>
+            <p class="muted">Submitted by: ${item.role === 'manager' ? 'Communications Manager' : 'Administrator'}</p>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;">
+              <button class="btn btn-primary" data-action="approve" data-id="${item.id}">Approve</button>
+              <button class="btn btn-danger" data-action="reject" data-id="${item.id}">Reject</button>
             </div>
           `;
-          reviewList.appendChild(div);
+          reviewList.appendChild(card);
         });
 
-        reviewList.querySelectorAll('[data-approve]').forEach((button) => {
-          button.addEventListener('click', () => approveItem(button.dataset.approve));
-        });
-
-        reviewList.querySelectorAll('[data-reject]').forEach((button) => {
-          button.addEventListener('click', () => rejectItem(button.dataset.reject));
+        reviewList.querySelectorAll('[data-action]').forEach((button) => {
+          button.addEventListener('click', async () => {
+            const action = button.dataset.action;
+            const id = button.dataset.id;
+            if (action === 'approve') {
+              await getJson('/api/approve', {
+                method: 'POST',
+                body: JSON.stringify({ id })
+              });
+              showToast('Content approved for launch-ready storage.');
+            } else {
+              await getJson('/api/reject', {
+                method: 'POST',
+                body: JSON.stringify({ id })
+              });
+              showToast('Submission rejected.');
+            }
+            await loadQueue();
+            await reloadContent();
+          });
         });
       }
 
-      function approveItem(id) {
-        const item = state.queue.find(entry => entry.id === id);
-        if (!item) return;
-        state.approved = JSON.parse(JSON.stringify(item.content));
-        state.queue = state.queue.filter(entry => entry.id !== id);
-        state.content = JSON.parse(JSON.stringify(item.content));
-        persistState();
+      function buildPreviewHtml(previewContent) {
+        return `
+          <!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>WWF NA Preview</title>
+            <style>
+              body { margin: 0; font-family: Arial, sans-serif; background: #f2f5f1; color: #1e2b1d; }
+              .wrap { max-width: 1100px; margin: 0 auto; padding: 28px 18px 54px; }
+              .hero { background: linear-gradient(135deg, #1d562f, #6e9b62); color: white; border-radius: 18px; padding: 32px; }
+              .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: 24px; }
+              .card { background: white; border-radius: 16px; padding: 18px; box-shadow: 0 10px 22px rgba(0,0,0,.06); }
+              img { width: 100%; height: 200px; object-fit: cover; border-radius: 14px; }
+              h1, h2, h3 { margin-top: 0; }
+            </style>
+          </head>
+          <body>
+            <div class="wrap">
+              <div class="hero">
+                <h1>${escapeHtml(previewContent.home?.title || '')}</h1>
+                <p>${escapeHtml(previewContent.home?.subtitle || '')}</p>
+              </div>
+              <div class="grid">
+                <div class="card">
+                  <h3>Mission</h3>
+                  <p>${escapeHtml(previewContent.about?.mission || '')}</p>
+                </div>
+                <div class="card">
+                  <h3>Vision</h3>
+                  <p>${escapeHtml(previewContent.about?.vision || '')}</p>
+                </div>
+              </div>
+              <div class="grid" style="margin-top: 28px;">
+                ${(previewContent.projects || []).slice(0, 3).map((project) => `
+                  <div class="card">
+                    <img src="${escapeHtml(project.image || '')}" alt="${escapeHtml(project.title || '')}" />
+                    <h3>${escapeHtml(project.title || '')}</h3>
+                    <p>${escapeHtml(project.summary || '')}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </body>
+          </html>
+        `;
+      }
+
+      function previewContent() {
+        const next = parseFormData();
+        const previewWindow = window.open('', '_blank', 'noopener');
+        previewWindow.document.write(buildPreviewHtml(next));
+        previewWindow.document.close();
+        showToast('Private preview opened in a new tab.');
+      }
+
+      async function reloadContent() {
+        const data = await getJson('/api/content');
+        content = data.content || {};
+        approved = data.approved || {};
         updateStats();
-        renderSection();
-        showToast('Approved content has been stored for later launch.');
+        render();
       }
 
-      function rejectItem(id) {
-        state.queue = state.queue.filter(entry => entry.id !== id);
-        persistState();
-        renderReviewQueue();
-        updateStats();
-        showToast('Submission rejected and removed from the queue.');
-      }
+      async function login(role, username, password) {
+        try {
+          const response = await getJson('/api/login', {
+            method: 'POST',
+            body: JSON.stringify({ role, username, password })
+          });
 
-      function handleImageUpload(event) {
-        const field = event.target.dataset.imageField;
-        if (!field || !event.target.files || !event.target.files[0]) return;
-        toDataUrl(event.target.files[0]).then((dataUrl) => {
-          const name = field.split('.');
-          const out = parseFormData(state.currentSection);
-          if (name[0] === 'projects' || name[0] === 'news') {
-            const index = Number(name[1]);
-            const key = name[2];
-            out[name[0]][index][key] = dataUrl;
-          } else {
-            out[name[0]][name[1]] = dataUrl;
-          }
-          state.content = out;
-          persistState();
-          renderSection();
-          showToast('Image uploaded and stored in the browser for this draft.');
-        }).catch(() => showToast('Unable to read the image.'));
-      }
-
-      function login(role, password) {
-        const savedPassword = role === 'admin' ? state.config.adminPassword : state.config.managerPassword;
-        if (!savedPassword || password !== savedPassword) {
-          showToast('Incorrect password for this role.');
-          return;
+          currentUser = response.user;
+          setCurrentUser(currentUser);
+          appScreen.classList.remove('hidden');
+          loginScreen.classList.add('hidden');
+          await reloadContent();
+          await loadDrafts();
+          if (role === 'admin') await loadQueue();
+        } catch (error) {
+          showToast(error.message);
         }
-
-        state.currentRole = role;
-        state.session = { role, loggedInAt: new Date().toISOString() };
-        persistState();
-        document.getElementById('loginPassword').value = '';
-        loginScreen.classList.add('hidden');
-        appScreen.classList.remove('hidden');
-        updateStats();
-        renderSection();
       }
 
-      function logout() {
-        state.session = null;
-        persistState();
+      async function logout() {
+        await fetch('/api/logout', { method: 'POST' });
+        currentUser = null;
         appScreen.classList.add('hidden');
         loginScreen.classList.remove('hidden');
-        showToast('You have been logged out.');
+        showToast('Logged out successfully.');
       }
 
-      loginForm.addEventListener('submit', (event) => {
+      document.getElementById('loginForm').addEventListener('submit', async (event) => {
         event.preventDefault();
-        const role = roleSelect.value;
-        const password = document.getElementById('loginPassword').value;
-        login(role, password);
-      });
-
-      setupForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const managerPassword = document.getElementById('managerPassword').value.trim();
-        const adminPassword = document.getElementById('adminPassword').value.trim();
-
-        if (!managerPassword || !adminPassword) {
-          showToast('Please add both passwords.');
-          return;
-        }
-
-        state.config.managerPassword = managerPassword;
-        state.config.adminPassword = adminPassword;
-        persistState();
-        renderLoginState();
-        showToast('Credentials saved. Please log in.');
+        const role = document.getElementById('role').value;
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+        await login(role, username, password);
       });
 
       document.getElementById('logoutBtn').addEventListener('click', logout);
 
-      document.addEventListener('change', (event) => {
-        if (event.target.matches('input[type="file"][data-image-field]')) {
-          handleImageUpload(event);
-        }
+      formPanel.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        await saveDraft();
       });
 
-      document.addEventListener('submit', (event) => {
-        if (event.target.id === 'contentForm') {
-          event.preventDefault();
-          saveDraft();
+      (async function init() {
+        try {
+          await reloadContent();
+          await loadDrafts();
+          if (currentUser && currentUser.role === 'admin') await loadQueue();
+        } catch (error) {
+          console.error(error);
         }
-      });
-
-      renderLoginState();
-      updateStats();
-
-      if (state.session) {
-        loginScreen.classList.add('hidden');
-        appScreen.classList.remove('hidden');
-        state.currentRole = state.session.role;
-        renderSection();
-      }
+      })();
     </script>
   </body>
 </html>
