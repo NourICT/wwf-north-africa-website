@@ -6,333 +6,91 @@
     <title>WWF North Africa CMS</title>
     <style>
       :root {
-        --green: #1f5d32;
-        --green-dark: #123d22;
-        --green-soft: #edf6ee;
-        --line: #dfeae1;
+        --green: #1a5e2d;
+        --green-deep: #123f22;
+        --soft: #edf5ee;
+        --line: #dbe7dc;
         --bg: #f4f7f2;
-        --text: #1a2b1d;
-        --muted: #5f7363;
-        --alert: #d76a58;
-        --gold: #d0a447;
+        --text: #1b2b1c;
+        --muted: #5f7564;
         --white: #ffffff;
+        --gold: #d9a947;
+        --danger: #b03c2c;
       }
-
       * { box-sizing: border-box; }
       body {
         margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
-        background: linear-gradient(180deg, #f5f8f4 0%, #edf2ed 100%);
+        background: linear-gradient(180deg, #f9faf8 0%, #edf3ed 100%);
         color: var(--text);
+        font-family: Arial, Helvetica, sans-serif;
       }
-
-      button, input, textarea, select {
-        font: inherit;
-      }
-
+      button, input, textarea, select { font: inherit; }
       .hidden { display: none !important; }
-
       .login-shell {
         min-height: 100vh;
         display: grid;
         place-items: center;
         padding: 28px;
-        background: radial-gradient(circle at top, rgba(53, 118, 71, 0.12), transparent 40%);
+        background: radial-gradient(circle at top, rgba(26, 94, 45, 0.12), transparent 40%);
       }
-
       .login-box {
         width: min(560px, 100%);
-        background: rgba(255,255,255,0.94);
+        background: rgba(255,255,255,0.95);
         border: 1px solid var(--line);
         border-radius: 22px;
-        padding: 32px 28px;
-        box-shadow: 0 18px 38px rgba(15, 35, 22, 0.08);
+        box-shadow: 0 14px 36px rgba(17, 44, 24, .08);
+        padding: 30px 26px;
       }
-
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        margin-bottom: 18px;
-      }
-
+      .brand { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
       .brand-mark {
-        width: 54px;
-        height: 54px;
-        border-radius: 16px;
-        background: linear-gradient(135deg, var(--green), #4e8e52);
-        color: var(--white);
-        display: grid;
-        place-items: center;
-        font-weight: 700;
+        width: 54px; height: 54px; border-radius: 16px; display: grid; place-items: center;
+        background: linear-gradient(135deg, var(--green), #4d8d54); color: var(--white); font-weight: 700;
       }
-
       h1, h2, h3, p { margin-top: 0; }
       .muted { color: var(--muted); }
-
-      form {
-        display: grid;
-        gap: 14px;
-      }
-
-      .field {
-        display: grid;
-        gap: 8px;
-      }
-
-      label {
-        font-size: 0.95rem;
-        font-weight: 700;
-      }
-
+      .field { display: grid; gap: 8px; margin-bottom: 14px; }
+      label { font-weight: 700; }
       input, textarea, select {
-        width: 100%;
-        min-height: 46px;
-        padding: 10px 12px;
-        border-radius: 12px;
-        border: 1px solid var(--line);
-        background: var(--white);
+        width: 100%; min-height: 46px; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: var(--white);
         color: var(--text);
       }
-
-      textarea {
-        min-height: 120px;
-        resize: vertical;
-      }
-
+      textarea { min-height: 120px; resize: vertical; }
       .btn {
-        border: 0;
-        border-radius: 12px;
-        min-height: 48px;
-        padding: 0 18px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: transform 0.12s ease;
+        border: 0; border-radius: 12px; min-height: 48px; padding: 0 18px; font-weight: 700; cursor: pointer;
       }
-
-      .btn:hover { transform: translateY(-1px); }
-      .btn-primary {
-        background: linear-gradient(135deg, var(--green), #4d8f53);
-        color: var(--white);
-      }
-      .btn-secondary {
-        background: var(--green-soft);
-        border: 1px solid var(--line);
-        color: var(--text);
-      }
-      .btn-warning {
-        background: #fff1d1;
-        border: 1px solid #f0d6a2;
-        color: #7d5b15;
-      }
-      .btn-danger {
-        background: #fff0ef;
-        border: 1px solid #f0c8c3;
-        color: var(--alert);
-      }
-
-      .layout {
-        display: grid;
-        grid-template-columns: 260px 1fr;
-        min-height: 100vh;
-      }
-
-      .sidebar {
-        background: linear-gradient(180deg, var(--green-dark), var(--green));
-        color: white;
-        padding: 24px 18px;
-      }
-
-      .sidebar .brand {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 22px;
-        font-weight: 700;
-      }
-
-      .sidebar .brand-mark {
-        width: 42px;
-        height: 42px;
-        border-radius: 12px;
-        font-size: 0.8rem;
-      }
-
-      .nav {
-        display: grid;
-        gap: 10px;
-      }
-
+      .btn-primary { background: linear-gradient(135deg, var(--green), #4e8e53); color: var(--white); }
+      .btn-secondary { background: var(--soft); border: 1px solid var(--line); color: var(--text); }
+      .btn-warning { background: #fff1d3; border: 1px solid #efcf7a; color: #7e5b15; }
+      .btn-danger { background: #fff0ee; border: 1px solid #eac0bc; color: var(--danger); }
+      .layout { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+      .sidebar { background: linear-gradient(180deg, var(--green-deep), var(--green)); color: white; padding: 24px 18px; }
+      .brand-sm { display: flex; align-items: center; gap: 10px; font-weight: 700; margin-bottom: 20px; }
+      .brand-sm .brand-mark { width: 42px; height: 42px; border-radius: 12px; font-size: 0.8rem; }
+      .nav { display: grid; gap: 10px; }
       .nav button {
-        width: 100%;
-        border: 1px solid rgba(255,255,255,0.12);
-        background: rgba(255,255,255,0.05);
-        min-height: 44px;
-        border-radius: 12px;
-        color: white;
-        text-align: left;
-        padding: 10px 12px;
-        cursor: pointer;
+        width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.05); color: white; text-align: left; cursor: pointer;
       }
-
-      .nav button.active {
-        background: rgba(255,255,255,0.14);
-      }
-
-      .content {
-        padding: 28px;
-      }
-
-      .topbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 14px;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-      }
-
-      .topbar h2 {
-        margin: 0;
-        font-size: clamp(1.7rem, 2vw, 2.2rem);
-      }
-
-      .toolbar {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-
-      .panel {
-        background: rgba(255,255,255,0.9);
-        border: 1px solid var(--line);
-        border-radius: 18px;
-        padding: 20px;
-        box-shadow: 0 12px 24px rgba(18, 35, 23, 0.06);
-        margin-bottom: 20px;
-      }
-
-      .stats {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 16px;
-      }
-
-      .stat {
-        background: linear-gradient(180deg, #f9faf8, #f2f7f3);
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        padding: 16px;
-      }
-
-      .stat strong {
-        display: block;
-        font-size: 1.7rem;
-        margin-top: 6px;
-      }
-
-      .section-head {
-        margin-bottom: 14px;
-      }
-
-      .two-col {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 16px;
-      }
-
-      .section-block {
-        background: #f8faf8;
-        border: 1px solid var(--line);
-        border-radius: 16px;
-        padding: 18px;
-        margin-top: 16px;
-      }
-
-      .image-preview {
-        display: block;
-        width: 100%;
-        max-height: 220px;
-        object-fit: cover;
-        border-radius: 12px;
-        border: 1px solid var(--line);
-      }
-
-      .image-drop {
-        border: 1.5px dashed #cfdecf;
-        background: #f7fbf7;
-        border-radius: 12px;
-        padding: 16px;
-      }
-
-      .review-list {
-        display: grid;
-        gap: 14px;
-      }
-
-      .review-item {
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        background: #fbfdfb;
-        padding: 16px;
-      }
-
-      .review-meta {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-        align-items: center;
-        flex-wrap: wrap;
-        margin-bottom: 8px;
-      }
-
-      .badge {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 999px;
-        padding: 6px 10px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        background: #edf7ee;
-        color: var(--green);
-      }
-
-      .badge.pending { background: #fff4d7; color: #7d5b15; }
-
-      .small-note {
-        font-size: 0.82rem;
-        color: var(--muted);
-      }
-
-      .toast {
-        position: fixed;
-        right: 24px;
-        bottom: 24px;
-        background: var(--green-dark);
-        color: white;
-        padding: 12px 16px;
-        border-radius: 12px;
-        box-shadow: 0 16px 30px rgba(12, 28, 18, 0.18);
-        display: none;
-      }
-
-      .toast.show {
-        display: block;
-        animation: slide 0.2s ease;
-      }
-
-      @keyframes slide {
-        from { transform: translateY(10px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-      }
-
-      @media (max-width: 860px) {
-        .layout { grid-template-columns: 1fr; }
-        .sidebar { padding-bottom: 10px; }
-        .content { padding: 18px; }
-      }
+      .nav button.active { background: rgba(255,255,255,0.14); }
+      .content { padding: 28px; }
+      .topbar { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin-bottom: 20px; flex-wrap: wrap; }
+      .topbar h2 { margin: 0; }
+      .toolbar { display: flex; gap: 10px; flex-wrap: wrap; }
+      .panel { background: rgba(255,255,255,0.9); border: 1px solid var(--line); border-radius: 18px; padding: 20px; box-shadow: 0 12px 22px rgba(17, 44, 24, .05); margin-bottom: 20px; }
+      .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; }
+      .stat { background: linear-gradient(180deg, #fafcfb, #f1f7f2); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
+      .stat strong { display: block; font-size: 1.7rem; margin-top: 6px; }
+      .two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+      .section-block { background: #f8faf8; border: 1px solid var(--line); border-radius: 16px; padding: 18px; margin-top: 16px; }
+      .review-list { display: grid; gap: 14px; }
+      .review-item { border: 1px solid var(--line); border-radius: 12px; background: #fbfdfb; padding: 16px; }
+      .review-meta { display: flex; justify-content: space-between; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+      .badge { display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; padding: 6px 10px; font-size: 0.75rem; font-weight: 700; background: #edf7ee; color: var(--green); }
+      .badge.pending { background: #fff3d1; color: #7d5a15; }
+      .small-note { color: var(--muted); font-size: 0.82rem; }
+      .toast { position: fixed; right: 22px; bottom: 22px; background: var(--green-deep); color: white; padding: 12px 16px; border-radius: 12px; box-shadow: 0 14px 28px rgba(15, 29, 18, .18); display: none; }
+      .toast.show { display: block; animation: slide .2s ease; }
+      @keyframes slide { from { transform: translateY(12px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+      @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } .content { padding: 18px; } }
     </style>
   </head>
   <body>
@@ -342,45 +100,41 @@
           <div class="brand-mark">WWF</div>
           <div>
             <h1>CMS Portal</h1>
-            <p class="muted">WWF North Africa — pre-launch content management</p>
+            <p class="muted">Independent pre-launch content management</p>
           </div>
         </div>
-
-        <div id="loginPanel">
-          <form id="loginForm">
-            <div class="field">
-              <label for="role">Role</label>
-              <select id="role">
-                <option value="manager">Communications Manager</option>
-                <option value="admin">Administrator</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="username">Username</label>
-              <input id="username" type="text" autocomplete="username" required />
-            </div>
-            <div class="field">
-              <label for="password">Password</label>
-              <input id="password" type="password" autocomplete="current-password" required />
-            </div>
-            <button type="submit" class="btn btn-primary">Open dashboard</button>
-          </form>
-        </div>
+        <form id="loginForm">
+          <div class="field">
+            <label for="role">Role</label>
+            <select id="role">
+              <option value="manager">Communications Manager</option>
+              <option value="admin">Administrator</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="username">Username</label>
+            <input id="username" type="text" required />
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" type="password" required />
+          </div>
+          <button type="submit" class="btn btn-primary">Open dashboard</button>
+        </form>
       </div>
     </div>
 
     <div id="appScreen" class="layout hidden">
       <aside class="sidebar">
-        <div class="brand">
+        <div class="brand-sm">
           <div class="brand-mark">WWF</div>
           <span>North Africa</span>
         </div>
         <div id="nav" class="nav"></div>
-        <div style="margin-top: 20px;">
+        <div style="margin-top: 16px;">
           <button id="logoutBtn" class="btn btn-secondary" style="width: 100%;">Log out</button>
         </div>
       </aside>
-
       <main class="content">
         <div class="topbar">
           <h2 id="pageTitle">Dashboard</h2>
@@ -402,7 +156,7 @@
               <strong id="queueCount">0</strong>
             </div>
             <div class="stat">
-              <span class="muted">Last updated</span>
+              <span class="muted">Last saved</span>
               <strong id="lastSaved">-</strong>
             </div>
           </div>
@@ -420,7 +174,7 @@
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <script>
-      const sectionOrder = [
+      const sections = [
         { key: 'home', label: 'Homepage' },
         { key: 'about', label: 'About WWF' },
         { key: 'projects', label: 'Projects' },
@@ -434,16 +188,17 @@
       let currentSection = 'home';
       let currentUser = null;
       let content = {};
-      let drafts = [];
       let queue = [];
-      let approved = {};
+      let drafts = [];
 
-      const loginScreen = document.getElementById('loginScreen');
-      const appScreen = document.getElementById('appScreen');
+      const nav = document.getElementById('nav');
       const formPanel = document.getElementById('formPanel');
       const reviewPanel = document.getElementById('reviewPanel');
       const reviewList = document.getElementById('reviewList');
-      const nav = document.getElementById('nav');
+
+      function escapeHtml(value) {
+        return String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
+      }
 
       function showToast(message) {
         const toast = document.getElementById('toast');
@@ -453,57 +208,16 @@
         showToast.timer = setTimeout(() => toast.classList.remove('show'), 2200);
       }
 
-      function escapeHtml(value) {
-        return String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
-      }
-
-      function setCurrentUser(user) {
-        currentUser = user;
-        document.getElementById('currentRole').textContent = user && user.role === 'admin' ? 'Administrator' : 'Communications Manager';
-      }
-
-      async function getJson(url, options = {}) {
-        const response = await fetch(url, {
-          headers: { 'Content-Type': 'application/json' },
-          ...options
-        });
-        const json = await response.json();
-        if (!response.ok) throw new Error(json.error || 'Request failed.');
-        return json;
-      }
-
-      async function loadContent() {
-        const data = await getJson('/api/content');
-        content = data.content || {};
-        approved = data.approved || {};
-        updateStats();
-        render();
-      }
-
-      async function loadDrafts() {
-        const data = await getJson('/api/drafts');
-        drafts = data.drafts || [];
-        updateStats();
-      }
-
-      async function loadQueue() {
-        if (!currentUser || currentUser.role !== 'admin') return;
-        const data = await getJson('/api/queue');
-        queue = data.queue || [];
-        renderReviewQueue();
-        updateStats();
-      }
-
-      function updateStats() {
+      function renderStats() {
+        document.getElementById('currentRole').textContent = currentUser && currentUser.role === 'admin' ? 'Administrator' : 'Communications Manager';
         document.getElementById('draftCount').textContent = drafts.length;
-        document.getElementById('queueCount').textContent = queue.length || 0;
-        const savedValue = content && content.lastSaved ? new Date(content.lastSaved).toLocaleString() : '-';
-        document.getElementById('lastSaved').textContent = savedValue;
+        document.getElementById('queueCount').textContent = queue.length;
+        document.getElementById('lastSaved').textContent = content && content.lastSaved ? new Date(content.lastSaved).toLocaleString() : '-';
       }
 
       function renderNav() {
         nav.innerHTML = '';
-        sectionOrder.forEach((section) => {
+        sections.forEach((section) => {
           const btn = document.createElement('button');
           btn.type = 'button';
           btn.textContent = section.label;
@@ -514,15 +228,6 @@
           });
           nav.appendChild(btn);
         });
-      }
-
-      function render() {
-        const section = sectionOrder.find((item) => item.key === currentSection) || sectionOrder[0];
-        document.getElementById('pageTitle').textContent = section.label;
-        renderNav();
-        renderToolbar();
-        formPanel.innerHTML = buildFormForSection(section.key);
-        renderReviewQueue();
       }
 
       function renderToolbar() {
@@ -548,27 +253,36 @@
           submitBtn.type = 'button';
           submitBtn.className = 'btn btn-primary';
           submitBtn.textContent = 'Submit for approval';
-          submitBtn.addEventListener('click', submitApproval);
+          submitBtn.addEventListener('click', submitSubmission);
           toolbar.appendChild(submitBtn);
         }
       }
 
-      function buildFormForSection(key) {
+      function render() {
+        const selected = sections.find((section) => section.key === currentSection) || sections[0];
+        document.getElementById('pageTitle').textContent = selected.label;
+        renderNav();
+        renderToolbar();
+        formPanel.innerHTML = buildForm(selected.key);
+        renderReviewPanel();
+      }
+
+      function buildForm(key) {
         if (key === 'home') {
           return `
-            <div class="section-head"><h3>Homepage</h3></div>
-            <div class="two-col">
-              <div class="field">
-                <label>Hero title</label>
-                <input name="home.title" value="${escapeHtml(content.home?.title || '')}" />
-              </div>
-              <div class="field">
-                <label>Hero image URL</label>
-                <input name="home.heroImage" value="${escapeHtml(content.home?.heroImage || '')}" />
-              </div>
-            </div>
             <div class="section-block">
-              <div class="field">
+              <h3>Homepage</h3>
+              <div class="two-col">
+                <div class="field">
+                  <label>Hero title</label>
+                  <input name="home.title" value="${escapeHtml(content.home?.title || '')}" />
+                </div>
+                <div class="field">
+                  <label>Hero image URL</label>
+                  <input name="home.heroImage" value="${escapeHtml(content.home?.heroImage || '')}" />
+                </div>
+              </div>
+              <div class="field" style="margin-top: 12px;">
                 <label>Subtitle</label>
                 <textarea name="home.subtitle">${escapeHtml(content.home?.subtitle || '')}</textarea>
               </div>
@@ -578,8 +292,8 @@
 
         if (key === 'about') {
           return `
-            <div class="section-head"><h3>About WWF</h3></div>
             <div class="section-block">
+              <h3>About WWF</h3>
               <div class="field">
                 <label>Mission</label>
                 <textarea name="about.mission">${escapeHtml(content.about?.mission || '')}</textarea>
@@ -597,88 +311,94 @@
         }
 
         if (key === 'projects') {
-          const projects = content.projects || [];
+          const list = content.projects || [];
           return `
-            <div class="section-head"><h3>Projects</h3></div>
-            ${projects.map((project, index) => `
-              <div class="section-block">
-                <div class="two-col">
-                  <div class="field">
-                    <label>Title</label>
-                    <input name="projects.${index}.title" value="${escapeHtml(project.title || '')}" />
+            <div class="section-block">
+              <h3>Projects</h3>
+              ${list.map((project, index) => `
+                <div class="section-block">
+                  <div class="two-col">
+                    <div class="field">
+                      <label>Title</label>
+                      <input name="projects.${index}.title" value="${escapeHtml(project.title || '')}" />
+                    </div>
+                    <div class="field">
+                      <label>Image URL</label>
+                      <input name="projects.${index}.image" value="${escapeHtml(project.image || '')}" />
+                    </div>
                   </div>
-                  <div class="field">
-                    <label>Image URL</label>
-                    <input name="projects.${index}.image" value="${escapeHtml(project.image || '')}" />
+                  <div class="field" style="margin-top: 12px;">
+                    <label>Summary</label>
+                    <textarea name="projects.${index}.summary">${escapeHtml(project.summary || '')}</textarea>
                   </div>
                 </div>
-                <div class="field" style="margin-top: 12px;">
-                  <label>Summary</label>
-                  <textarea name="projects.${index}.summary">${escapeHtml(project.summary || '')}</textarea>
-                </div>
-              </div>
-            `).join('') || '<div class="section-block"><p class="muted">No project entries yet.</p></div>'}
+              `).join('') || '<p class="small-note">No project content yet.</p>'}
+            </div>
           `;
         }
 
         if (key === 'news') {
-          const news = content.news || [];
+          const list = content.news || [];
           return `
-            <div class="section-head"><h3>News and publications</h3></div>
-            ${news.map((item, index) => `
-              <div class="section-block">
-                <div class="two-col">
-                  <div class="field">
-                    <label>Headline</label>
-                    <input name="news.${index}.headline" value="${escapeHtml(item.headline || '')}" />
+            <div class="section-block">
+              <h3>News and publications</h3>
+              ${list.map((item, index) => `
+                <div class="section-block">
+                  <div class="two-col">
+                    <div class="field">
+                      <label>Headline</label>
+                      <input name="news.${index}.headline" value="${escapeHtml(item.headline || '')}" />
+                    </div>
+                    <div class="field">
+                      <label>Date</label>
+                      <input type="date" name="news.${index}.date" value="${escapeHtml(item.date || '')}" />
+                    </div>
                   </div>
-                  <div class="field">
-                    <label>Date</label>
-                    <input type="date" name="news.${index}.date" value="${escapeHtml(item.date || '')}" />
+                  <div class="field" style="margin-top: 12px;">
+                    <label>Summary</label>
+                    <textarea name="news.${index}.summary">${escapeHtml(item.summary || '')}</textarea>
+                  </div>
+                  <div class="field" style="margin-top: 12px;">
+                    <label>Image URL</label>
+                    <input name="news.${index}.image" value="${escapeHtml(item.image || '')}" />
                   </div>
                 </div>
-                <div class="field" style="margin-top: 12px;">
-                  <label>Summary</label>
-                  <textarea name="news.${index}.summary">${escapeHtml(item.summary || '')}</textarea>
-                </div>
-                <div class="field" style="margin-top: 12px;">
-                  <label>Image URL</label>
-                  <input name="news.${index}.image" value="${escapeHtml(item.image || '')}" />
-                </div>
-              </div>
-            `).join('') || '<div class="section-block"><p class="muted">No news entries yet.</p></div>'}
+              `).join('') || '<p class="small-note">No news content yet.</p>'}
+            </div>
           `;
         }
 
         if (key === 'team') {
-          const team = content.team || [];
+          const list = content.team || [];
           return `
-            <div class="section-head"><h3>Team</h3></div>
-            ${team.map((person, index) => `
-              <div class="section-block">
-                <div class="two-col">
-                  <div class="field">
-                    <label>Name</label>
-                    <input name="team.${index}.name" value="${escapeHtml(person.name || '')}" />
+            <div class="section-block">
+              <h3>Team</h3>
+              ${list.map((person, index) => `
+                <div class="section-block">
+                  <div class="two-col">
+                    <div class="field">
+                      <label>Name</label>
+                      <input name="team.${index}.name" value="${escapeHtml(person.name || '')}" />
+                    </div>
+                    <div class="field">
+                      <label>Role</label>
+                      <input name="team.${index}.role" value="${escapeHtml(person.role || '')}" />
+                    </div>
                   </div>
-                  <div class="field">
-                    <label>Role</label>
-                    <input name="team.${index}.role" value="${escapeHtml(person.role || '')}" />
+                  <div class="field" style="margin-top: 12px;">
+                    <label>Focus</label>
+                    <textarea name="team.${index}.focus">${escapeHtml(person.focus || '')}</textarea>
                   </div>
                 </div>
-                <div class="field" style="margin-top: 12px;">
-                  <label>Focus</label>
-                  <textarea name="team.${index}.focus">${escapeHtml(person.focus || '')}</textarea>
-                </div>
-              </div>
-            `).join('') || '<div class="section-block"><p class="muted">No team members yet.</p></div>'}
+              `).join('') || '<p class="small-note">No team members yet.</p>'}
+            </div>
           `;
         }
 
         if (key === 'partners') {
           return `
-            <div class="section-head"><h3>Partners and institutions</h3></div>
             <div class="section-block">
+              <h3>Partners</h3>
               <div class="field">
                 <label>Partner names (one per line)</label>
                 <textarea name="partners">${escapeHtml((content.partners || []).join('\n'))}</textarea>
@@ -689,8 +409,8 @@
 
         if (key === 'contact') {
           return `
-            <div class="section-head"><h3>Contact details</h3></div>
             <div class="section-block">
+              <h3>Contact details</h3>
               <div class="two-col">
                 <div class="field">
                   <label>Email</label>
@@ -722,23 +442,25 @@
         }
 
         if (key === 'downloads') {
-          const downloads = content.downloads || [];
+          const list = content.downloads || [];
           return `
-            <div class="section-head"><h3>Downloadable documents</h3></div>
-            ${downloads.map((file, index) => `
-              <div class="section-block">
-                <div class="two-col">
-                  <div class="field">
-                    <label>Name</label>
-                    <input name="downloads.${index}.name" value="${escapeHtml(file.name || '')}" />
-                  </div>
-                  <div class="field">
-                    <label>URL</label>
-                    <input name="downloads.${index}.url" value="${escapeHtml(file.url || '')}" />
+            <div class="section-block">
+              <h3>Downloadable files</h3>
+              ${list.map((item, index) => `
+                <div class="section-block">
+                  <div class="two-col">
+                    <div class="field">
+                      <label>Name</label>
+                      <input name="downloads.${index}.name" value="${escapeHtml(item.name || '')}" />
+                    </div>
+                    <div class="field">
+                      <label>URL</label>
+                      <input name="downloads.${index}.url" value="${escapeHtml(item.url || '')}" />
+                    </div>
                   </div>
                 </div>
-              </div>
-            `).join('') || '<div class="section-block"><p class="muted">No documents yet.</p></div>'}
+              `).join('') || '<p class="small-note">No documents yet.</p>'}
+            </div>
           `;
         }
 
@@ -752,14 +474,14 @@
         const formData = new FormData(form);
         const output = JSON.parse(JSON.stringify(content));
 
-        const updateNested = (obj, path, value) => {
+        const assignPath = (obj, parts, value) => {
           let current = obj;
-          for (let i = 0; i < path.length - 1; i += 1) {
-            const key = path[i];
-            if (!current[key]) current[key] = {};
-            current = current[key];
+          for (let i = 0; i < parts.length - 1; i++) {
+            const part = parts[i];
+            if (!current[part]) current[part] = {};
+            current = current[part];
           }
-          current[path[path.length - 1]] = value;
+          current[parts[parts.length - 1]] = value;
         };
 
         for (const [key, value] of formData.entries()) {
@@ -768,20 +490,20 @@
             continue;
           }
 
-          const segments = key.split('.');
-          const first = segments[0];
+          const parts = key.split('.');
+          const first = parts[0];
           if (['home', 'about', 'contact'].includes(first)) {
-            updateNested(output, segments, value);
+            assignPath(output, parts, value);
             continue;
           }
 
           if (['projects', 'news', 'team', 'downloads'].includes(first)) {
-            const listIndex = Number(segments[1]);
-            const fieldName = segments[2];
-            if (!Number.isNaN(listIndex) && fieldName) {
+            const idx = Number(parts[1]);
+            const fieldName = parts[2];
+            if (!Number.isNaN(idx) && fieldName) {
               if (!output[first]) output[first] = [];
-              if (!output[first][listIndex]) output[first][listIndex] = {};
-              output[first][listIndex][fieldName] = value;
+              if (!output[first][idx]) output[first][idx] = {};
+              output[first][idx][fieldName] = value;
             }
           }
         }
@@ -789,33 +511,41 @@
         return output;
       }
 
-      async function saveDraft() {
-        const next = parseFormData();
-        next.lastSaved = new Date().toISOString();
-        content = next;
-        await getJson('/api/draft', {
-          method: 'POST',
-          body: JSON.stringify({ content: next }),
+      async function requestJson(url, options = {}) {
+        const response = await fetch(url, {
+          headers: { 'Content-Type': 'application/json' },
+          ...options
         });
-        await loadDrafts();
-        await reloadContent();
-        showToast('Draft saved successfully.');
+        const json = await response.json();
+        if (!response.ok) {
+          throw new Error(json.error || 'Request failed');
+        }
+        return json;
       }
 
-      async function submitApproval() {
-        const next = parseFormData();
-        next.lastSaved = new Date().toISOString();
-        content = next;
-        await getJson('/api/submit', {
-          method: 'POST',
-          body: JSON.stringify({ content: next })
-        });
-        await loadQueue();
-        await reloadContent();
-        showToast('Submitted to the Administrator for approval.');
+      async function loadContent() {
+        const data = await requestJson('/api/content');
+        content = data.content || {};
+        content.lastSaved = new Date().toISOString();
+        renderStats();
+        render();
       }
 
-      function renderReviewQueue() {
+      async function loadDrafts() {
+        const data = await requestJson('/api/drafts');
+        drafts = data.drafts || [];
+        renderStats();
+      }
+
+      async function loadQueue() {
+        if (!currentUser || currentUser.role !== 'admin') return;
+        const data = await requestJson('/api/queue');
+        queue = data.queue || [];
+        renderReviewPanel();
+        renderStats();
+      }
+
+      function renderReviewPanel() {
         if (!currentUser || currentUser.role !== 'admin') {
           reviewPanel.classList.add('hidden');
           return;
@@ -824,8 +554,8 @@
         reviewPanel.classList.remove('hidden');
         reviewList.innerHTML = '';
 
-        if (queue.length === 0) {
-          reviewList.innerHTML = '<p class="muted">No pending approvals. Approved content is ready for launch when WWF decides to publish.</p>';
+        if (!queue.length) {
+          reviewList.innerHTML = '<p class="small-note">No pending submissions.</p>';
           return;
         }
 
@@ -834,10 +564,10 @@
           card.className = 'review-item';
           card.innerHTML = `
             <div class="review-meta">
-              <strong>${new Date(item.createdAt).toLocaleString()}</strong>
+              <strong>${new Date(item.created_at).toLocaleString()}</strong>
               <span class="badge pending">Pending</span>
             </div>
-            <p class="muted">Submitted by: ${item.role === 'manager' ? 'Communications Manager' : 'Administrator'}</p>
+            <p class="small-note">Submitted by: ${item.created_by}</p>
             <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;">
               <button class="btn btn-primary" data-action="approve" data-id="${item.id}">Approve</button>
               <button class="btn btn-danger" data-action="reject" data-id="${item.id}">Reject</button>
@@ -851,101 +581,57 @@
             const action = button.dataset.action;
             const id = button.dataset.id;
             if (action === 'approve') {
-              await getJson('/api/approve', {
-                method: 'POST',
-                body: JSON.stringify({ id })
-              });
-              showToast('Content approved for launch-ready storage.');
+              await requestJson('/api/approve', { method: 'POST', body: JSON.stringify({ id }) });
+              showToast('Submission approved.');
             } else {
-              await getJson('/api/reject', {
-                method: 'POST',
-                body: JSON.stringify({ id })
-              });
+              await requestJson('/api/reject', { method: 'POST', body: JSON.stringify({ id }) });
               showToast('Submission rejected.');
             }
             await loadQueue();
-            await reloadContent();
+            await loadContent();
           });
         });
       }
 
-      function buildPreviewHtml(previewContent) {
-        return `
-          <!doctype html>
-          <html lang="en">
-          <head>
-            <meta charset="UTF-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <title>WWF NA Preview</title>
-            <style>
-              body { margin: 0; font-family: Arial, sans-serif; background: #f2f5f1; color: #1e2b1d; }
-              .wrap { max-width: 1100px; margin: 0 auto; padding: 28px 18px 54px; }
-              .hero { background: linear-gradient(135deg, #1d562f, #6e9b62); color: white; border-radius: 18px; padding: 32px; }
-              .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: 24px; }
-              .card { background: white; border-radius: 16px; padding: 18px; box-shadow: 0 10px 22px rgba(0,0,0,.06); }
-              img { width: 100%; height: 200px; object-fit: cover; border-radius: 14px; }
-              h1, h2, h3 { margin-top: 0; }
-            </style>
-          </head>
-          <body>
-            <div class="wrap">
-              <div class="hero">
-                <h1>${escapeHtml(previewContent.home?.title || '')}</h1>
-                <p>${escapeHtml(previewContent.home?.subtitle || '')}</p>
-              </div>
-              <div class="grid">
-                <div class="card">
-                  <h3>Mission</h3>
-                  <p>${escapeHtml(previewContent.about?.mission || '')}</p>
-                </div>
-                <div class="card">
-                  <h3>Vision</h3>
-                  <p>${escapeHtml(previewContent.about?.vision || '')}</p>
-                </div>
-              </div>
-              <div class="grid" style="margin-top: 28px;">
-                ${(previewContent.projects || []).slice(0, 3).map((project) => `
-                  <div class="card">
-                    <img src="${escapeHtml(project.image || '')}" alt="${escapeHtml(project.title || '')}" />
-                    <h3>${escapeHtml(project.title || '')}</h3>
-                    <p>${escapeHtml(project.summary || '')}</p>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          </body>
-          </html>
-        `;
+      async function saveDraft() {
+        const next = parseFormData();
+        next.lastSaved = new Date().toISOString();
+        content = next;
+        await requestJson('/api/draft', { method: 'POST', body: JSON.stringify({ content: next }) });
+        await loadDrafts();
+        await loadContent();
+        showToast('Draft saved.');
+      }
+
+      async function submitSubmission() {
+        const next = parseFormData();
+        next.lastSaved = new Date().toISOString();
+        content = next;
+        await requestJson('/api/submit', { method: 'POST', body: JSON.stringify({ content: next }) });
+        if (currentUser.role === 'admin') await loadQueue();
+        await loadContent();
+        showToast('Submitted for approval.');
       }
 
       function previewContent() {
         const next = parseFormData();
-        const previewWindow = window.open('', '_blank', 'noopener');
-        previewWindow.document.write(buildPreviewHtml(next));
-        previewWindow.document.close();
-        showToast('Private preview opened in a new tab.');
+        const win = window.open('', '_blank', 'noopener');
+        win.document.write(`<!doctype html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>WWF NA Preview</title><style>body{margin:0;font-family:Arial,sans-serif;color:#1b2b1c;background:#f2f5f1} .wrap{max-width:1100px;margin:0 auto;padding:26px 18px 60px}.hero{padding:32px;border-radius:18px;background:linear-gradient(135deg,#1d5a2d,#6b9d63);color:white}.grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:18px;margin-top:24px}.card{background:white;border-radius:16px;padding:18px;box-shadow:0 10px 22px rgba(0,0,0,.06)}img{width:100%;height:200px;object-fit:cover;border-radius:14px}</style></head><body><div class="wrap"><div class="hero"><h1>${escapeHtml(next.home?.title || '')}</h1><p>${escapeHtml(next.home?.subtitle || '')}</p></div><div class="grid"><div class="card"><h3>Mission</h3><p>${escapeHtml(next.about?.mission || '')}</p></div><div class="card"><h3>Vision</h3><p>${escapeHtml(next.about?.vision || '')}</p></div></div><div class="grid">${(next.projects || []).slice(0,3).map((project) => `<div class="card"><img src="${escapeHtml(project.image || '')}" alt="${escapeHtml(project.title || '')}" /><h3>${escapeHtml(project.title || '')}</h3><p>${escapeHtml(project.summary || '')}</p></div>`).join('')}</div></div></body></html>`);
+        win.document.close();
       }
 
-      async function reloadContent() {
-        const data = await getJson('/api/content');
-        content = data.content || {};
-        approved = data.approved || {};
-        updateStats();
-        render();
-      }
-
-      async function login(role, username, password) {
+      async function login(username, password, role) {
         try {
-          const response = await getJson('/api/login', {
+          const result = await requestJson('/api/login', {
             method: 'POST',
-            body: JSON.stringify({ role, username, password })
+            body: JSON.stringify({ username, password, role })
           });
-
-          currentUser = response.user;
-          setCurrentUser(currentUser);
-          appScreen.classList.remove('hidden');
-          loginScreen.classList.add('hidden');
-          await reloadContent();
+          currentUser = result.user;
+          document.getElementById('loginScreen').classList.add('hidden');
+          document.getElementById('appScreen').classList.remove('hidden');
+          renderStats();
+          render();
+          await loadContent();
           await loadDrafts();
           if (role === 'admin') await loadQueue();
         } catch (error) {
@@ -953,34 +639,30 @@
         }
       }
 
-      async function logout() {
-        await fetch('/api/logout', { method: 'POST' });
-        currentUser = null;
-        appScreen.classList.add('hidden');
-        loginScreen.classList.remove('hidden');
-        showToast('Logged out successfully.');
-      }
-
       document.getElementById('loginForm').addEventListener('submit', async (event) => {
         event.preventDefault();
-        const role = document.getElementById('role').value;
         const username = document.getElementById('username').value.trim();
         const password = document.getElementById('password').value;
-        await login(role, username, password);
+        const role = document.getElementById('role').value;
+        await login(username, password, role);
       });
 
-      document.getElementById('logoutBtn').addEventListener('click', logout);
-
-      formPanel.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        await saveDraft();
+      document.getElementById('logoutBtn').addEventListener('click', async () => {
+        try {
+          await fetch('/api/logout', { method: 'POST' });
+        } catch (error) {
+          console.error(error);
+        }
+        currentUser = null;
+        document.getElementById('appScreen').classList.add('hidden');
+        document.getElementById('loginScreen').classList.remove('hidden');
+        showToast('Logged out successfully.');
       });
 
       (async function init() {
         try {
-          await reloadContent();
+          await loadContent();
           await loadDrafts();
-          if (currentUser && currentUser.role === 'admin') await loadQueue();
         } catch (error) {
           console.error(error);
         }

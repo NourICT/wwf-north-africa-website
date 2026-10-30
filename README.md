@@ -1,65 +1,81 @@
-# WWF North Africa — Independent CMS Setup
+# WWF North Africa CMS
 
-This repository now includes an independent pre-launch CMS for the WWF North Africa website.
+This repository has been upgraded to a deployment-ready content management architecture suitable for Netlify or Vercel, with a real PostgreSQL-backed data layer instead of JSON-only storage.
 
-## What it does
+## Deployment targets
 
-- Separate admin interface served from `/admin`
-- Manager and administrator roles with login authentication
-- Draft saving and private preview
-- Approval workflow before launch
-- Persistent JSON storage on disk
-- Image upload support via the local uploads folder
-- No automatic public launch when content is saved
+### Vercel
 
-## Run locally
-
-1. Install dependencies:
+1. Provision a PostgreSQL database (Neon, Supabase, Railway, etc.)
+2. Add this environment variable in Vercel Dashboard:
+   - `DATABASE_URL=postgres://...`
+3. Add secure login credentials:
+   - `CMS_MANAGER_USERNAME`
+   - `CMS_MANAGER_PASSWORD`
+   - `CMS_ADMIN_USERNAME`
+   - `CMS_ADMIN_PASSWORD`
+   - `CMS_SESSION_SECRET`
+4. Run:
    ```bash
    npm install
+   npm run init-db
+   npm run start
    ```
+5. Deploy to Vercel with the repo root as the project root.
 
-2. Copy the example environment file and update the credentials before use:
-   ```bash
-   cp .env.example .env
-   ```
+### Netlify
 
-3. Start the CMS server:
-   ```bash
-   npm start
-   ```
+1. Create a managed Postgres database.
+2. Set the same environment variables in Netlify Site settings.
+3. Deploy the repo.
+4. Use `netlify.toml` and the serverless setup included in the project.
 
-4. Open:
-   - admin: http://localhost:3000/admin
-   - public website: http://localhost:3000/
+## Production database setup
 
-## Default credentials
+Run the schema initializer:
 
-The default values in `.env.example` are intentionally placeholders and must be changed before production use.
+```bash
+npm run init-db
+```
 
-- Communications Manager username: `communications-manager`
-- Communications Manager password: `change-me`
-- Administrator username: `administrator`
-- Administrator password: `change-me`
+This creates the required tables:
+- `cms_content` for active content and approved content
+- `cms_submissions` for approval workflow
+- `cms_drafts` for draft snapshots
+- `cms_media` for uploaded assets
 
-## Storage model
+## Production UI improvements
 
-Content is saved to `data/store.json`.
+The CMS UI now includes:
+- dedicated manager and administrator roles
+- role-based access control
+- draft management
+- approval queue
+- preview window
+- structured content editing for homepage, projects, team, news, partners, and contact fields
+- upload-ready media design for future image storage integration
 
-- `content`: active working content
-- `drafts`: saved drafts
-- `queue`: pending approval submissions
-- `approved`: approved content ready for launch
+## Security notes
 
-Uploaded images are stored under `uploads/` and served at `/uploads/...`.
+Before production launch:
+- change all default credentials in `.env`
+- use strong passwords and a long `CMS_SESSION_SECRET`
+- use a hosted Postgres database instead of local development storage
+- never expose your admin portal publicly without authentication and HTTPS
 
-## Launch workflow
+## Local development
 
-1. Communications Manager logs in to `/admin`
-2. Edits sections and saves drafts
-3. Uses Preview to view private updates
-4. Submits content for approval
-5. Administrator reviews and approves or rejects
-6. Approved content remains stored until WWF triggers the public launch
+```bash
+cp .env.example .env
+npm install
+npm run init-db
+npm start
+```
 
-This preserves the public site and prevents accidental publishing when content is edited.
+Then open:
+- Admin: `http://localhost:3000/admin`
+- Public homepage: `http://localhost:3000/`
+
+## Important note
+
+This version is ready for deployment on Vercel or Netlify with a managed PostgreSQL database, but the public website content is still separate from the admin layer by design. The public website remains unpublished until the Administrator approves and triggers the launch step.

@@ -1,244 +1,146 @@
 const express = require('express');
 const session = require('express-session');
 const multer = require('multer');
-const fs = require('fs');
 const path = require('path');
+const fs = require('fs');
 const dotenv = require('dotenv');
+const { getContent, saveContent, saveDraft, getDrafts, saveSubmission, getPendingSubmissions, approveSubmission, rejectSubmission, saveMedia } = require('./lib/db');
 
 dotenv.config();
 
 const app = express();
 const PORT = Number(process.env.PORT || 3000);
-const rootDir = __dirname;
-const storePath = path.join(rootDir, 'data', 'store.json');
-const uploadsDir = path.join(rootDir, 'uploads');
-
-fs.mkdirSync(path.dirname(storePath), { recursive: true });
+const uploadsDir = path.join(__dirname, 'uploads');
 fs.mkdirSync(uploadsDir, { recursive: true });
 
-const defaultContent = {
-  home: {
-    title: 'Together for a living Tunisia',
-    subtitle: 'Protecting nature, empowering communities, and advancing a sustainable future for North Africa.',
-    heroImage: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80'
-  },
-  about: {
-    mission: 'To stop the degradation of the natural environment and build a future in which people live in harmony with nature.',
-    vision: 'A healthy, resilient region where people and nature thrive together.',
-    summary: 'WWF North Africa works with communities, institutions, and partners to preserve biodiversity, restore ecosystems, and improve livelihoods.'
-  },
-  projects: [],
-  news: [],
-  team: [],
-  partners: [],
-  contact: {
-    email: 'contact@wwfna.org',
-    phone: '+216 00 000 000',
-    address: '5 Rue Ibn El Monadi, El Menzah 1, 1004 Tunis',
-    facebook: 'https://www.facebook.com',
-    instagram: 'https://www.instagram.com',
-    linkedin: 'https://www.linkedin.com'
-  },
-  downloads: []
-};
-
-function readStore() {
-  try {
-    const data = fs.readFileSync(storePath, 'utf8');
-    const parsed = JSON.parse(data);
-    return {
-      content: parsed.content || defaultContent,
-      drafts: parsed.drafts || [],
-      queue: parsed.queue || [],
-      approved: parsed.approved || defaultContent
-    };
-  } catch (error) {
-    const initial = {
-      content: defaultContent,
-      drafts: [],
-      queue: [],
-      approved: defaultContent
-    };
-    fs.writeFileSync(storePath, JSON.stringify(initial, null, 2), 'utf8');
-    return initial;
-  }
-}
-
-function writeStore(data) {
-  fs.writeFileSync(storePath, JSON.stringify(data, null, 2), 'utf8');
-}
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: uploadsDir,
+    filename: (_req, file, cb) => {
+      const basename = file.originalname.replace(/[^a-zA-Z0-9._-]/g, '-');
+      cb(null, `${Date.now()}-${basename}`);
+    }
+  }),
+  limits: { fileSize: 12 * 1024 * 1024 }
+});
 
 app.use(express.json({ limit: '20mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
-  secret: process.env.CMS_SESSION_SECRET || 'wwf-north-africa-cms-secret',
+  secret: process.env.CMS_SESSION_SECRET || 'wwf-cms-secret',
   resave: false,
   saveUninitialized: false,
-  cookie: {
-    httpOnly: true,
-    sameSite: 'lax',
-    secure: false,
-    maxAge: 1000 * 60 * 60 * 12
-  }
+  cookie: { httpOnly: true, sameSite: 'lax', secure: false, maxAge: 12 * 60 * 60 * 1000 }
 }));
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadsDir),
-  filename: (req, file, cb) => {
-    const safe = file.originalname.replace(/[^a-zA-Z0-9_.-]/g, '-');
-    const suffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    cb(null, `${suffix}-${safe}`);
-  }
-});
-
-const upload = multer({
-  storage,
-  limits: { fileSize: 10 * 1024 * 1024 }
-});
-
-function requireLogin(req, res, next) {
+function requireAuth(req, res, next) {
   if (!req.session || !req.session.user) {
     return res.status(401).json({ error: 'Unauthorized. Please log in.' });
   }
   next();
 }
 
-function requireRole(role, req, res, next) {
-  if (!req.session || !req.session.user || req.session.user.role !== role) {
-    return res.status(403).json({ error: 'Forbidden for this role.' });
+function requireAdmin(req, res, next) {
+  if (!req.session || !req.session.user || req.session.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Forbidden. Administrator access required.' });
   }
   next();
 }
 
-app.get(['/admin', '/admin/'], (req, res) => {
-  res.sendFile(path.join(rootDir, 'admin'));
-});
-
-app.get('/api/health', (req, res) => res.json({ ok: true, service: 'WWF North Africa CMS' }));
-
 app.post('/api/login', (req, res) => {
   const { username, password, role } = req.body || {};
-  const validRole = role === 'manager' || role === 'admin';
+  const expectedUsername = role === 'admin' ? (process.env.CMS_ADMIN_USERNAME || 'administrator') : (process.env.CMS_MANAGER_USERNAME || 'communications-manager');
+  const expectedPassword = role === 'admin' ? (process.env.CMS_ADMIN_PASSWORD || 'change-me') : (process.env.CMS_MANAGER_PASSWORD || 'change-me');
 
-  if (!validRole) {
-    return res.status(400).json({ error: 'Invalid role supplied.' });
+  if (!role || (role !== 'manager' && role !== 'admin')) {
+    return res.status(400).json({ error: 'Role is invalid.' });
   }
 
-  const expectedUsername = role === 'manager'
-    ? (process.env.CMS_MANAGER_USERNAME || 'communications-manager')
-    : (process.env.CMS_ADMIN_USERNAME || 'administrator');
-
-  const expectedPassword = role === 'manager'
-    ? (process.env.CMS_MANAGER_PASSWORD || 'change-me')
-    : (process.env.CMS_ADMIN_PASSWORD || 'change-me');
-
-  if (username !== expectedUsername || password !== expectedPassword) {
-    return res.status(401).json({ error: 'Invalid username or password.' });
+  if (username === expectedUsername && password === expectedPassword) {
+    req.session.user = { username, role };
+    return res.json({ ok: true, user: { username, role } });
   }
 
-  req.session.user = { username, role };
-  return res.json({ ok: true, user: { username, role } });
+  return res.status(401).json({ error: 'Invalid username or password.' });
 });
 
 app.post('/api/logout', (req, res) => {
-  req.session.destroy(() => {
-    res.json({ ok: true });
-  });
+  req.session.destroy(() => res.json({ ok: true }));
 });
 
-app.get('/api/content', requireLogin, (req, res) => {
-  const store = readStore();
-  return res.json({ content: store.content, approved: store.approved });
+app.get('/api/content', requireAuth, async (_req, res) => {
+  const data = await getContent();
+  return res.json({ content: data.site || {}, approved: data.approved || {} });
 });
 
-app.post('/api/content', requireLogin, (req, res) => {
-  const store = readStore();
-  store.content = req.body.content || store.content;
-  store.content.lastSaved = new Date().toISOString();
-  writeStore(store);
-  return res.json({ ok: true, content: store.content });
+app.post('/api/content', requireAuth, async (req, res) => {
+  const next = req.body?.content || {};
+  const saved = await saveContent(next);
+  return res.json({ ok: true, content: saved });
 });
 
-app.post('/api/draft', requireLogin, (req, res) => {
-  const store = readStore();
-  const payload = req.body.content || store.content;
-  const draft = {
-    id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
-    createdAt: new Date().toISOString(),
-    content: payload
-  };
-  store.drafts.push(draft);
-  writeStore(store);
+app.get('/api/drafts', requireAuth, async (_req, res) => {
+  const drafts = await getDrafts();
+  return res.json({ drafts });
+});
+
+app.post('/api/draft', requireAuth, async (req, res) => {
+  const payload = req.body?.content || {};
+  const draft = await saveDraft(req.session.user.username, payload);
   return res.json({ ok: true, draft });
 });
 
-app.get('/api/drafts', requireLogin, (req, res) => {
-  const store = readStore();
-  return res.json({ drafts: store.drafts });
-});
+app.post('/api/submit', requireAuth, async (req, res) => {
+  if (req.session.user.role !== 'manager') {
+    return res.status(403).json({ error: 'Only the Communications Manager can submit content.' });
+  }
 
-app.post('/api/submit', requireLogin, (req, res) => {
-  const store = readStore();
-  const item = {
-    id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
-    createdAt: new Date().toISOString(),
-    status: 'pending',
-    role: req.session.user.role,
-    content: req.body.content || store.content
-  };
-  store.queue.push(item);
-  store.content = item.content;
-  writeStore(store);
+  const payload = req.body?.content || {};
+  const item = await saveSubmission(req.session.user.username, payload);
   return res.json({ ok: true, item });
 });
 
-app.get('/api/queue', requireLogin, requireRole.bind(null, 'admin'), (req, res) => {
-  const store = readStore();
-  return res.json({ queue: store.queue.filter((item) => item.status === 'pending') });
+app.get('/api/queue', requireAuth, requireAdmin, async (_req, res) => {
+  const queue = await getPendingSubmissions();
+  return res.json({ queue });
 });
 
-app.post('/api/approve', requireLogin, requireRole.bind(null, 'admin'), (req, res) => {
+app.post('/api/approve', requireAuth, requireAdmin, async (req, res) => {
   const { id } = req.body || {};
-  const store = readStore();
-  const index = store.queue.findIndex((item) => item.id === id);
-
-  if (index === -1) {
-    return res.status(404).json({ error: 'Submission not found.' });
-  }
-
-  const approved = store.queue[index];
-  approved.status = 'approved';
-  store.approved = approved.content;
-  store.content = approved.content;
-  store.queue.splice(index, 1);
-  writeStore(store);
-
-  return res.json({ ok: true, approved: store.approved });
+  const item = await approveSubmission(id, req.session.user.username);
+  if (!item) return res.status(404).json({ error: 'Submission not found.' });
+  return res.json({ ok: true, item });
 });
 
-app.post('/api/reject', requireLogin, requireRole.bind(null, 'admin'), (req, res) => {
+app.post('/api/reject', requireAuth, requireAdmin, async (req, res) => {
   const { id } = req.body || {};
-  const store = readStore();
-  const next = store.queue.filter((item) => item.id !== id);
-  store.queue = next;
-  writeStore(store);
-  return res.json({ ok: true, queue: store.queue });
+  const item = await rejectSubmission(id);
+  if (!item) return res.status(404).json({ error: 'Submission not found.' });
+  return res.json({ ok: true, item });
 });
 
-app.post('/api/upload', requireLogin, upload.single('file'), (req, res) => {
+app.post('/api/upload', requireAuth, upload.single('file'), async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: 'No file uploaded.' });
   }
 
-  const publicUrl = `/uploads/${req.file.filename}`;
-  return res.json({ ok: true, url: publicUrl, filename: req.file.filename });
+  const publicUrl = `${process.env.PUBLIC_BASE_URL || 'http://localhost:3000'}/uploads/${req.file.filename}`;
+  const saved = await saveMedia({
+    filename: req.file.filename,
+    url: publicUrl,
+    mimetype: req.file.mimetype,
+    size: req.file.size
+  });
+
+  return res.json({ ok: true, media: saved });
 });
 
 app.use('/uploads', express.static(uploadsDir));
-
-app.use(express.static(rootDir));
+app.use(express.static(path.join(__dirname, 'public')));
+app.get('/admin', (_req, res) => res.sendFile(path.join(__dirname, 'admin')));
+app.get('/', (_req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
 app.listen(PORT, () => {
-  console.log(`WWF North Africa CMS running on http://localhost:${PORT}`);
-  console.log('Use the .env.example file to configure secure login credentials before production launch.');
+  console.log(`WWF CMS running at http://localhost:${PORT}`);
+  console.log('Remember to configure DATABASE_URL and secure credentials in .env');
 });
