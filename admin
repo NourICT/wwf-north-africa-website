@@ -1,14 +1,1216 @@
-
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WWF Website Editor</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WWF North Africa CMS</title>
+    <style>
+      :root {
+        --wwf-green: #2a6d36;
+        --wwf-dark: #1b2d1d;
+        --wwf-soft: #ecf3e7;
+        --wwf-accent: #d7ebce;
+        --wwf-gold: #d89a2d;
+        --wwf-white: #ffffff;
+        --wwf-border: #dfe8d9;
+        --wwf-text: #1b2a1e;
+        --wwf-red: #8a3a2d;
+        --shadow: 0 14px 40px rgba(16, 31, 19, 0.12);
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(180deg, #f5f7f2 0%, #edf2ea 100%);
+        color: var(--wwf-text);
+      }
+
+      button, input, textarea, select {
+        font: inherit;
+      }
+
+      .hidden { display: none !important; }
+
+      .login-shell {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background: radial-gradient(circle at top, rgba(130, 184, 130, 0.18), transparent 40%),
+          linear-gradient(135deg, #f5f7f2, #edf3ee);
+      }
+
+      .login-box {
+        width: min(520px, 100%);
+        background: rgba(255,255,255,0.9);
+        border: 1px solid var(--wwf-border);
+        border-radius: 22px;
+        box-shadow: var(--shadow);
+        padding: 32px 28px;
+        backdrop-filter: blur(8px);
+      }
+
+      .brand-row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+
+      .brand-mark {
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--wwf-green), #6da96a);
+        color: var(--wwf-white);
+      }
+
+      .brand-mark.small {
+        width: 42px;
+        height: 42px;
+        font-size: 0.8rem;
+      }
+
+      h1, h2, h3, h4, p {
+        margin-top: 0;
+      }
+
+      .muted {
+        color: #5d6e60;
+      }
+
+      .login-box h1 {
+        margin: 0;
+        font-size: clamp(1.7rem, 3vw, 2.2rem);
+      }
+
+      .login-box form {
+        display: grid;
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .field {
+        display: grid;
+        gap: 8px;
+      }
+
+      .field label {
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+
+      .field input,
+      .field textarea,
+      .field select {
+        width: 100%;
+        border: 1px solid var(--wwf-border);
+        background: white;
+        border-radius: 12px;
+        min-height: 46px;
+        padding: 10px 12px;
+        color: var(--wwf-text);
+      }
+
+      .field textarea {
+        min-height: 110px;
+        resize: vertical;
+      }
+
+      button {
+        border: none;
+        cursor: pointer;
+        transition: transform 0.15s ease, opacity 0.15s ease;
+      }
+
+      button:hover { transform: translateY(-1px); }
+
+      button:active { transform: translateY(0); }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--wwf-green), #3d8d4b);
+        color: var(--wwf-white);
+        border-radius: 12px;
+        min-height: 48px;
+        font-weight: 700;
+      }
+
+      .btn-secondary {
+        background: var(--wwf-soft);
+        border: 1px solid var(--wwf-border);
+        color: var(--wwf-text);
+        border-radius: 12px;
+        min-height: 46px;
+        font-weight: 600;
+      }
+
+      .btn-warning {
+        background: #fff4d7;
+        border: 1px solid #f0dca6;
+        color: #7a5a14;
+        border-radius: 12px;
+        min-height: 44px;
+      }
+
+      .btn-danger {
+        background: #fff0ee;
+        border: 1px solid #f0c7c2;
+        color: var(--wwf-red);
+        border-radius: 12px;
+        min-height: 44px;
+      }
+
+      .inline {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+      }
+
+      .layout {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 280px 1fr;
+      }
+
+      .sidebar {
+        background: linear-gradient(180deg, #173c21 0%, #133a1d 100%);
+        color: white;
+        padding: 24px 18px;
+      }
+
+      .sidebar .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 24px;
+        font-size: 1.1rem;
+        font-weight: 700;
+      }
+
+      .nav {
+        display: grid;
+        gap: 8px;
+      }
+
+      .nav button {
+        background: rgba(255,255,255,0.05);
+        color: white;
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 12px;
+        min-height: 44px;
+        text-align: left;
+        padding: 10px 12px;
+        font-weight: 600;
+      }
+
+      .nav button.active {
+        background: rgba(255,255,255,0.14);
+        border-color: rgba(255,255,255,0.2);
+      }
+
+      .content {
+        padding: 28px;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 18px;
+        flex-wrap: wrap;
+      }
+
+      .topbar h2 {
+        margin: 0;
+        font-size: clamp(1.5rem, 2vw, 2rem);
+      }
+
+      .toolbar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .panel {
+        background: rgba(255,255,255,0.82);
+        border: 1px solid var(--wwf-border);
+        border-radius: 18px;
+        box-shadow: 0 8px 24px rgba(26, 46, 31, 0.07);
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 16px;
+      }
+
+      .stat {
+        background: linear-gradient(135deg, #f7faf6, #eef7ed);
+        border: 1px solid var(--wwf-border);
+        border-radius: 16px;
+        padding: 16px;
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 1.7rem;
+        margin-top: 6px;
+      }
+
+      .forms {
+        display: grid;
+        gap: 18px;
+      }
+
+      .section-block {
+        background: #f8faf8;
+        border: 1px solid var(--wwf-border);
+        border-radius: 16px;
+        padding: 18px;
+      }
+
+      .section-block h3 {
+        margin: 0 0 14px;
+      }
+
+      .two-col {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+      }
+
+      .image-uploader {
+        display: grid;
+        gap: 12px;
+      }
+
+      .image-drop {
+        border: 1.5px dashed #cadbc1;
+        border-radius: 14px;
+        background: #f7fbf7;
+        padding: 20px;
+      }
+
+      .image-preview {
+        width: 100%;
+        max-height: 220px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 1px solid var(--wwf-border);
+        display: block;
+      }
+
+      .review-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .review-item {
+        border: 1px solid var(--wwf-border);
+        border-radius: 12px;
+        padding: 14px;
+        background: #fbfdfb;
+      }
+
+      .review-item .meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 8px;
+        flex-wrap: wrap;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 999px;
+        padding: 6px 10px;
+        font-size: 0.76rem;
+        font-weight: 700;
+        background: #edf6ec;
+        color: var(--wwf-green);
+      }
+
+      .badge.pending {
+        background: #fff4d7;
+        color: #8c6708;
+      }
+
+      .badge.approved {
+        background: #ebf8ef;
+        color: #1e6e35;
+      }
+
+      .small-note {
+        font-size: 0.82rem;
+        color: #60705f;
+      }
+
+      .toast {
+        position: fixed;
+        right: 22px;
+        bottom: 22px;
+        padding: 12px 16px;
+        border-radius: 12px;
+        background: var(--wwf-dark);
+        color: white;
+        box-shadow: var(--shadow);
+        display: none;
+      }
+
+      .toast.show {
+        display: block;
+        animation: slideUp 0.2s ease;
+      }
+
+      @keyframes slideUp {
+        from { transform: translateY(10px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+
+      @media (max-width: 840px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          padding-bottom: 12px;
+        }
+
+        .content {
+          padding: 18px;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div id="nc-root"></div>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <div id="loginScreen" class="login-shell">
+      <div class="login-box">
+        <div class="brand-row">
+          <div class="brand-mark">WWF</div>
+          <div>
+            <h1>CMS Portal</h1>
+            <p class="muted">WWF North Africa — Independent pre-launch content system</p>
+          </div>
+        </div>
+
+        <div id="setupPanel" class="hidden">
+          <h3>Set local access</h3>
+          <p class="small-note">Create the local passwords for the Communications Manager and Administrator. These are stored in the browser only for this prototype.</p>
+          <form id="setupForm">
+            <div class="field">
+              <label for="managerPassword">Communications Manager password</label>
+              <input id="managerPassword" type="password" required />
+            </div>
+            <div class="field">
+              <label for="adminPassword">Administrator password</label>
+              <input id="adminPassword" type="password" required />
+            </div>
+            <button class="btn-primary" type="submit">Save access settings</button>
+          </form>
+        </div>
+
+        <div id="loginPanel">
+          <form id="loginForm">
+            <div class="field">
+              <label for="roleSelect">Role</label>
+              <select id="roleSelect">
+                <option value="manager">Communications Manager</option>
+                <option value="admin">Administrator</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="loginPassword">Password</label>
+              <input id="loginPassword" type="password" placeholder="Enter your password" required />
+            </div>
+            <button class="btn-primary" type="submit">Access dashboard</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="appScreen" class="layout hidden">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark small">WWF</div>
+          <span>North Africa</span>
+        </div>
+        <div class="nav" id="navButtons"></div>
+        <div style="margin-top: 20px;">
+          <button id="logoutBtn" class="btn-secondary" style="width: 100%;">Log out</button>
+        </div>
+      </aside>
+
+      <main class="content">
+        <div class="topbar">
+          <h2 id="pageTitle">Dashboard</h2>
+          <div class="toolbar" id="toolbar"></div>
+        </div>
+
+        <section id="dashboardOverview" class="panel">
+          <div class="stats">
+            <div class="stat">
+              <span class="muted">Current role</span>
+              <strong id="currentRole">-</strong>
+            </div>
+            <div class="stat">
+              <span class="muted">Saved drafts</span>
+              <strong id="draftCount">0</strong>
+            </div>
+            <div class="stat">
+              <span class="muted">Approval queue</span>
+              <strong id="queueCount">0</strong>
+            </div>
+            <div class="stat">
+              <span class="muted">Last saved</span>
+              <strong id="lastSaved">-</strong>
+            </div>
+          </div>
+        </section>
+
+        <section id="formPanel" class="panel">
+          <form id="contentForm" class="forms"></form>
+        </section>
+
+        <section id="reviewPanel" class="panel hidden">
+          <h3>Approval queue</h3>
+          <div id="reviewList" class="review-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      const STORAGE_CONFIG = 'wwf-na-cms-config';
+      const STORAGE_CONTENT = 'wwf-na-cms-content';
+      const STORAGE_DRAFTS = 'wwf-na-cms-drafts';
+      const STORAGE_QUEUE = 'wwf-na-cms-queue';
+      const STORAGE_APPROVED = 'wwf-na-cms-approved';
+      const STORAGE_SESSION = 'wwf-na-cms-session';
+
+      const defaultContent = {
+        home: {
+          title: 'Together for a living Tunisia',
+          subtitle: 'Protecting nature, empowering communities, and advancing a sustainable future for North Africa.',
+          heroImage: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80'
+        },
+        about: {
+          mission: 'To stop the degradation of the natural environment and build a future in which people live in harmony with nature.',
+          vision: 'A healthy, resilient region where people and nature thrive together.',
+          summary: 'WWF North Africa works with communities, institutions, and partners to preserve biodiversity, restore ecosystems, and improve livelihoods.'
+        },
+        projects: [
+          { title: 'Marine conservation', summary: 'Protecting coastal ecosystems and supporting fishing communities.', image: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=900&q=80' },
+          { title: 'Freshwater restoration', summary: 'Improving water stewardship and ecosystem resilience across priority basins.', image: 'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=900&q=80' },
+          { title: 'Climate adaptation', summary: 'Helping communities respond to climate risks and environmental change.', image: 'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=900&q=80' }
+        ],
+        news: [
+          { headline: 'Community-led restoration in action', summary: 'Local actors are restoring wetlands and strengthening a network of nature-positive practices.', date: '2026-10-30', image: 'https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?auto=format&fit=crop&w=900&q=80' },
+          { headline: 'New partnership expands field support', summary: 'Collaborations with local institutions are improving outreach and on-the-ground action.', date: '2026-09-15', image: 'https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=900&q=80' }
+        ],
+        team: [
+          { name: 'Jamel Jrijer', role: 'Director', focus: 'Programme leadership and institutional partnerships.' },
+          { name: 'Intissar Ferjani', role: 'People & Culture Manager', focus: 'Capacity building, staff development and internal engagement.' },
+          { name: 'Amina Ben Ali', role: 'Field Programme Lead', focus: 'Operational delivery and field coordination.' }
+        ],
+        partners: [
+          'ANPE',
+          'Direction Générale des Forêts',
+          'Attijari Bank',
+          'Zitouna Tamkeen'
+        ],
+        contact: {
+          email: 'contact@wwfna.org',
+          phone: '+216 00 000 000',
+          address: '5 Rue Ibn El Monadi, El Menzah 1, 1004 Tunis',
+          facebook: 'https://www.facebook.com',
+          instagram: 'https://www.instagram.com',
+          linkedin: 'https://www.linkedin.com'
+        },
+        downloads: [
+          { name: 'WWF-NA grievance form', url: 'WWF-NA-grievance-form.pdf' },
+          { name: 'WWF-NA grievance mechanism', url: 'WWF-NA-grievance-mechanism.pdf' }
+        ]
+      };
+
+      const sectionOrder = [
+        { key: 'home', label: 'Homepage' },
+        { key: 'about', label: 'About WWF' },
+        { key: 'projects', label: 'Projects' },
+        { key: 'news', label: 'News' },
+        { key: 'team', label: 'Team' },
+        { key: 'partners', label: 'Partners' },
+        { key: 'contact', label: 'Contact' },
+        { key: 'downloads', label: 'Downloads' }
+      ];
+
+      const state = {
+        currentSection: 'home',
+        currentRole: 'manager',
+        config: getStorage(STORAGE_CONFIG, { managerPassword: '', adminPassword: '' }),
+        content: getStorage(STORAGE_CONTENT, defaultContent),
+        drafts: getStorage(STORAGE_DRAFTS, []),
+        queue: getStorage(STORAGE_QUEUE, []),
+        approved: getStorage(STORAGE_APPROVED, defaultContent),
+        session: getStorage(STORAGE_SESSION, null)
+      };
+
+      const loginScreen = document.getElementById('loginScreen');
+      const appScreen = document.getElementById('appScreen');
+      const loginPanel = document.getElementById('loginPanel');
+      const setupPanel = document.getElementById('setupPanel');
+      const loginForm = document.getElementById('loginForm');
+      const setupForm = document.getElementById('setupForm');
+      const roleSelect = document.getElementById('roleSelect');
+      const pageTitle = document.getElementById('pageTitle');
+      const formPanel = document.getElementById('formPanel');
+      const reviewPanel = document.getElementById('reviewPanel');
+      const navButtons = document.getElementById('navButtons');
+      const formEl = document.getElementById('contentForm');
+      const reviewList = document.getElementById('reviewList');
+
+      function getStorage(key, fallback) {
+        try {
+          const raw = localStorage.getItem(key);
+          return raw ? JSON.parse(raw) : fallback;
+        } catch (error) {
+          return fallback;
+        }
+      }
+
+      function setStorage(key, value) {
+        localStorage.setItem(key, JSON.stringify(value));
+      }
+
+      function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.classList.add('show');
+        clearTimeout(showToast.timeoutId);
+        showToast.timeoutId = setTimeout(() => toast.classList.remove('show'), 2200);
+      }
+
+      function isSetupComplete() {
+        return Boolean(state.config.managerPassword && state.config.adminPassword);
+      }
+
+      function renderLoginState() {
+        const showSetup = !isSetupComplete();
+        setupPanel.classList.toggle('hidden', !showSetup);
+        loginPanel.classList.toggle('hidden', showSetup);
+        if (showSetup) {
+          document.getElementById('managerPassword').value = '';
+          document.getElementById('adminPassword').value = '';
+        }
+      }
+
+      function persistState() {
+        setStorage(STORAGE_CONFIG, state.config);
+        setStorage(STORAGE_CONTENT, state.content);
+        setStorage(STORAGE_DRAFTS, state.drafts);
+        setStorage(STORAGE_QUEUE, state.queue);
+        setStorage(STORAGE_APPROVED, state.approved);
+        setStorage(STORAGE_SESSION, state.session);
+      }
+
+      function updateStats() {
+        document.getElementById('draftCount').textContent = state.drafts.length;
+        document.getElementById('queueCount').textContent = state.queue.filter(item => item.status === 'pending').length;
+        document.getElementById('lastSaved').textContent = state.content.lastSaved ? new Date(state.content.lastSaved).toLocaleString() : '—';
+        document.getElementById('currentRole').textContent = state.currentRole === 'admin' ? 'Administrator' : 'Communications Manager';
+      }
+
+      function escapeHtml(value) {
+        return String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
+      }
+
+      function toDataUrl(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+      }
+
+      function renderNav() {
+        navButtons.innerHTML = '';
+        sectionOrder.forEach((section) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.textContent = section.label;
+          button.className = section.key === state.currentSection ? 'active' : '';
+          button.addEventListener('click', () => {
+            state.currentSection = section.key;
+            renderSection();
+          });
+          navButtons.appendChild(button);
+        });
+      }
+
+      function renderSection() {
+        const section = sectionOrder.find(item => item.key === state.currentSection) || sectionOrder[0];
+        pageTitle.textContent = section.label;
+        renderNav();
+        formEl.innerHTML = buildSectionForm(section.key);
+        renderToolbar();
+        renderReviewQueue();
+      }
+
+      function renderToolbar() {
+        const toolbar = document.getElementById('toolbar');
+        toolbar.innerHTML = '';
+
+        const saveBtn = document.createElement('button');
+        saveBtn.type = 'button';
+        saveBtn.className = 'btn-secondary';
+        saveBtn.textContent = 'Save draft';
+        saveBtn.addEventListener('click', () => saveDraft());
+        toolbar.appendChild(saveBtn);
+
+        const previewBtn = document.createElement('button');
+        previewBtn.type = 'button';
+        previewBtn.className = 'btn-secondary';
+        previewBtn.textContent = 'Preview';
+        previewBtn.addEventListener('click', () => previewContent());
+        toolbar.appendChild(previewBtn);
+
+        if (state.currentRole === 'manager') {
+          const submitBtn = document.createElement('button');
+          submitBtn.type = 'button';
+          submitBtn.className = 'btn-primary';
+          submitBtn.textContent = 'Submit for approval';
+          submitBtn.addEventListener('click', () => submitForApproval());
+          toolbar.appendChild(submitBtn);
+        }
+
+        const roleBtn = document.createElement('button');
+        roleBtn.type = 'button';
+        roleBtn.className = 'btn-warning';
+        roleBtn.textContent = state.currentRole === 'admin' ? 'Working as Admin' : 'Working as Manager';
+        roleBtn.addEventListener('click', () => {
+          state.currentRole = state.currentRole === 'admin' ? 'manager' : 'admin';
+          renderSection();
+          updateStats();
+        });
+        toolbar.appendChild(roleBtn);
+      }
+
+      function buildSectionForm(sectionKey) {
+        const content = state.content;
+
+        if (sectionKey === 'home') {
+          return `
+            <div class="section-block">
+              <h3>Homepage</h3>
+              <div class="two-col">
+                <div class="field">
+                  <label>Hero title</label>
+                  <input name="home.title" value="${escapeHtml(content.home.title)}" />
+                </div>
+                <div class="field">
+                  <label>Hero image URL</label>
+                  <input name="home.heroImage" value="${escapeHtml(content.home.heroImage)}" />
+                </div>
+              </div>
+              <div class="field" style="margin-top: 16px;">
+                <label>Subtitle</label>
+                <textarea name="home.subtitle">${escapeHtml(content.home.subtitle)}</textarea>
+              </div>
+              <div class="image-uploader" style="margin-top: 16px;">
+                <div class="image-drop">
+                  <label class="small-note">Upload a new homepage image</label>
+                  <input type="file" accept="image/*" data-image-field="home.heroImage" />
+                </div>
+                <img class="image-preview" src="${escapeHtml(content.home.heroImage)}" alt="Homepage preview" onerror="this.style.display='none'" />
+              </div>
+            </div>
+          `;
+        }
+
+        if (sectionKey === 'about') {
+          return `
+            <div class="section-block">
+              <h3>About WWF</h3>
+              <div class="field">
+                <label>Mission</label>
+                <textarea name="about.mission">${escapeHtml(content.about.mission)}</textarea>
+              </div>
+              <div class="field">
+                <label>Vision</label>
+                <textarea name="about.vision">${escapeHtml(content.about.vision)}</textarea>
+              </div>
+              <div class="field">
+                <label>Summary</label>
+                <textarea name="about.summary">${escapeHtml(content.about.summary)}</textarea>
+              </div>
+            </div>
+          `;
+        }
+
+        if (sectionKey === 'projects') {
+          return `
+            <div class="section-block">
+              <h3>Projects and initiatives</h3>
+              ${content.projects.map((project, index) => `
+                <div class="two-col" style="margin-top: 18px; border-top: 1px solid var(--wwf-border); padding-top: 18px;">
+                  <div class="field">
+                    <label>Project ${index + 1} title</label>
+                    <input name="projects.${index}.title" value="${escapeHtml(project.title)}" />
+                  </div>
+                  <div class="field">
+                    <label>Project ${index + 1} image URL</label>
+                    <input name="projects.${index}.image" value="${escapeHtml(project.image)}" />
+                  </div>
+                  <div class="field" style="grid-column: 1 / -1;">
+                    <label>Description</label>
+                    <textarea name="projects.${index}.summary">${escapeHtml(project.summary)}</textarea>
+                  </div>
+                  <div style="grid-column: 1 / -1;" class="image-uploader">
+                    <div class="image-drop">
+                      <label class="small-note">Replace project image</label>
+                      <input type="file" accept="image/*" data-image-field="projects.${index}.image" />
+                    </div>
+                    <img class="image-preview" src="${escapeHtml(project.image)}" alt="Project image" onerror="this.style.display='none'" />
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `;
+        }
+
+        if (sectionKey === 'news') {
+          return `
+            <div class="section-block">
+              <h3>News and publications</h3>
+              ${content.news.map((item, index) => `
+                <div class="two-col" style="margin-top: 18px; border-top: 1px solid var(--wwf-border); padding-top: 18px;">
+                  <div class="field">
+                    <label>Headline ${index + 1}</label>
+                    <input name="news.${index}.headline" value="${escapeHtml(item.headline)}" />
+                  </div>
+                  <div class="field">
+                    <label>Date</label>
+                    <input name="news.${index}.date" type="date" value="${escapeHtml(item.date)}" />
+                  </div>
+                  <div class="field" style="grid-column: 1 / -1;">
+                    <label>Summary</label>
+                    <textarea name="news.${index}.summary">${escapeHtml(item.summary)}</textarea>
+                  </div>
+                  <div class="field" style="grid-column: 1 / -1;">
+                    <label>Image URL</label>
+                    <input name="news.${index}.image" value="${escapeHtml(item.image)}" />
+                  </div>
+                  <div style="grid-column: 1 / -1;" class="image-uploader">
+                    <div class="image-drop">
+                      <label class="small-note">Upload new image</label>
+                      <input type="file" accept="image/*" data-image-field="news.${index}.image" />
+                    </div>
+                    <img class="image-preview" src="${escapeHtml(item.image)}" alt="News image" onerror="this.style.display='none'" />
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `;
+        }
+
+        if (sectionKey === 'team') {
+          return `
+            <div class="section-block">
+              <h3>Team member profiles</h3>
+              ${content.team.map((person, index) => `
+                <div class="two-col" style="margin-top: 18px; border-top: 1px solid var(--wwf-border); padding-top: 18px;">
+                  <div class="field">
+                    <label>Name</label>
+                    <input name="team.${index}.name" value="${escapeHtml(person.name)}" />
+                  </div>
+                  <div class="field">
+                    <label>Role</label>
+                    <input name="team.${index}.role" value="${escapeHtml(person.role)}" />
+                  </div>
+                  <div class="field" style="grid-column: 1 / -1;">
+                    <label>Focus area</label>
+                    <textarea name="team.${index}.focus">${escapeHtml(person.focus)}</textarea>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `;
+        }
+
+        if (sectionKey === 'partners') {
+          return `
+            <div class="section-block">
+              <h3>Partners and institutions</h3>
+              <div class="field">
+                <label>Partner list</label>
+                <textarea name="partners">${escapeHtml(content.partners.join('\n'))}</textarea>
+              </div>
+            </div>
+          `;
+        }
+
+        if (sectionKey === 'contact') {
+          return `
+            <div class="section-block">
+              <h3>Contact details and social links</h3>
+              <div class="two-col">
+                <div class="field">
+                  <label>Email</label>
+                  <input name="contact.email" value="${escapeHtml(content.contact.email)}" />
+                </div>
+                <div class="field">
+                  <label>Phone</label>
+                  <input name="contact.phone" value="${escapeHtml(content.contact.phone)}" />
+                </div>
+                <div class="field" style="grid-column: 1 / -1;">
+                  <label>Address</label>
+                  <textarea name="contact.address">${escapeHtml(content.contact.address)}</textarea>
+                </div>
+                <div class="field">
+                  <label>Facebook</label>
+                  <input name="contact.facebook" value="${escapeHtml(content.contact.facebook)}" />
+                </div>
+                <div class="field">
+                  <label>Instagram</label>
+                  <input name="contact.instagram" value="${escapeHtml(content.contact.instagram)}" />
+                </div>
+                <div class="field">
+                  <label>LinkedIn</label>
+                  <input name="contact.linkedin" value="${escapeHtml(content.contact.linkedin)}" />
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        if (sectionKey === 'downloads') {
+          return `
+            <div class="section-block">
+              <h3>Downloadable reports and PDF documents</h3>
+              ${content.downloads.map((item, index) => `
+                <div class="two-col" style="margin-top: 18px; border-top: 1px solid var(--wwf-border); padding-top: 18px;">
+                  <div class="field">
+                    <label>Document title</label>
+                    <input name="downloads.${index}.name" value="${escapeHtml(item.name)}" />
+                  </div>
+                  <div class="field">
+                    <label>File URL</label>
+                    <input name="downloads.${index}.url" value="${escapeHtml(item.url)}" />
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `;
+        }
+
+        return '';
+      }
+
+      function parseFormData(sectionKey) {
+        const form = document.getElementById('contentForm');
+        const formData = new FormData(form);
+        const result = JSON.parse(JSON.stringify(state.content));
+
+        function setDeep(obj, keys, value) {
+          let pointer = obj;
+          for (let i = 0; i < keys.length - 1; i++) {
+            const key = keys[i];
+            if (key === '') continue;
+            if (!pointer[key]) pointer[key] = {};
+            pointer = pointer[key];
+          }
+          pointer[keys[keys.length - 1]] = value;
+        }
+
+        for (const [key, value] of formData.entries()) {
+          if (!key || key === 'partners') continue;
+          const path = key.split('.');
+          if (path[0] === 'projects' || path[0] === 'news' || path[0] === 'team' || path[0] === 'downloads') {
+            const index = Number(path[1]);
+            const field = path[2];
+            if (!Number.isNaN(index) && field) {
+              if (!result[path[0]][index]) result[path[0]][index] = {};
+              result[path[0]][index][field] = value;
+            }
+          } else if (path[0] === 'home' || path[0] === 'about' || path[0] === 'contact') {
+            setDeep(result, path, value);
+          }
+        }
+
+        if (formData.has('partners')) {
+          const partnerText = formData.get('partners');
+          result.partners = String(partnerText || '').split('\n').map(item => item.trim()).filter(Boolean);
+        }
+
+        if (sectionKey === 'home') {
+          result.home = { ...result.home, ...{ title: formData.get('home.title') || result.home.title, subtitle: formData.get('home.subtitle') || result.home.subtitle, heroImage: formData.get('home.heroImage') || result.home.heroImage } };
+        }
+
+        return result;
+      }
+
+      function saveDraft() {
+        const nextContent = parseFormData(state.currentSection);
+        nextContent.lastSaved = new Date().toISOString();
+        state.content = nextContent;
+        state.drafts.push({ id: crypto.randomUUID(), savedAt: new Date().toISOString(), content: JSON.parse(JSON.stringify(nextContent)) });
+        persistState();
+        updateStats();
+        renderReviewQueue();
+        showToast('Draft saved successfully.');
+      }
+
+      function previewContent() {
+        const previewData = parseFormData(state.currentSection);
+        const html = `
+          <!DOCTYPE html>
+          <html lang="en">
+            <head>
+              <meta charset="UTF-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <title>WWF NA Preview</title>
+              <style>
+                body { font-family: Arial, sans-serif; margin: 0; background: #f3f5f1; color: #1d2b1d; }
+                .wrap { max-width: 1100px; margin: 0 auto; padding: 32px 18px 60px; }
+                .hero { background: linear-gradient(135deg, #1f5a2d, #7da86d); color: white; border-radius: 18px; padding: 32px; }
+                .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 20px; }
+                .card { background: white; border-radius: 16px; padding: 18px; box-shadow: 0 12px 22px rgba(0,0,0,0.05); }
+                img { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; }
+                h1, h2, h3 { margin-top: 0; }
+              </style>
+            </head>
+            <body>
+              <div class="wrap">
+                <div class="hero">
+                  <h1>${escapeHtml(previewData.home.title)}</h1>
+                  <p>${escapeHtml(previewData.home.subtitle)}</p>
+                </div>
+                <div class="grid" style="margin-top: 28px;">
+                  <div class="card">
+                    <h2>Mission</h2>
+                    <p>${escapeHtml(previewData.about.mission)}</p>
+                  </div>
+                  <div class="card">
+                    <h2>Vision</h2>
+                    <p>${escapeHtml(previewData.about.vision)}</p>
+                  </div>
+                </div>
+                <div style="margin-top: 28px;">
+                  <h2>Featured projects</h2>
+                  <div class="grid">
+                    ${previewData.projects.map(project => `
+                      <div class="card">
+                        <img src="${escapeHtml(project.image)}" alt="${escapeHtml(project.title)}" />
+                        <h3>${escapeHtml(project.title)}</h3>
+                        <p>${escapeHtml(project.summary)}</p>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              </div>
+            </body>
+          </html>
+        `;
+
+        const previewWindow = window.open('', '_blank', 'noopener');
+        previewWindow.document.write(html);
+        previewWindow.document.close();
+        showToast('Private preview opened in a new tab.');
+      }
+
+      function submitForApproval() {
+        const nextContent = parseFormData(state.currentSection);
+        nextContent.lastSaved = new Date().toISOString();
+        state.content = nextContent;
+
+        const submission = {
+          id: crypto.randomUUID(),
+          submittedAt: new Date().toISOString(),
+          status: 'pending',
+          role: 'manager',
+          content: JSON.parse(JSON.stringify(nextContent))
+        };
+
+        state.queue.push(submission);
+        persistState();
+        updateStats();
+        renderReviewQueue();
+        showToast('Submitted for Administrator review.');
+      }
+
+      function renderReviewQueue() {
+        const queue = state.queue.filter(item => item.status === 'pending');
+        reviewList.innerHTML = '';
+
+        if (state.currentRole !== 'admin' && queue.length === 0) {
+          reviewPanel.classList.add('hidden');
+          return;
+        }
+
+        reviewPanel.classList.remove('hidden');
+
+        if (queue.length === 0) {
+          reviewList.innerHTML = '<p class="muted">No pending submissions. Approved content is ready for the launch team when WWF is ready to publish.</p>';
+          return;
+        }
+
+        queue.forEach((item) => {
+          const div = document.createElement('div');
+          div.className = 'review-item';
+          div.innerHTML = `
+            <div class="meta">
+              <strong>Submission ${new Date(item.submittedAt).toLocaleDateString()}</strong>
+              <span class="badge pending">Pending approval</span>
+            </div>
+            <div class="small-note">Content snapshot prepared by the Communications Manager</div>
+            <div class="inline" style="margin-top: 12px;">
+              <button class="btn-primary" data-approve="${item.id}" type="button">Approve</button>
+              <button class="btn-danger" data-reject="${item.id}" type="button">Reject</button>
+            </div>
+          `;
+          reviewList.appendChild(div);
+        });
+
+        reviewList.querySelectorAll('[data-approve]').forEach((button) => {
+          button.addEventListener('click', () => approveItem(button.dataset.approve));
+        });
+
+        reviewList.querySelectorAll('[data-reject]').forEach((button) => {
+          button.addEventListener('click', () => rejectItem(button.dataset.reject));
+        });
+      }
+
+      function approveItem(id) {
+        const item = state.queue.find(entry => entry.id === id);
+        if (!item) return;
+        state.approved = JSON.parse(JSON.stringify(item.content));
+        state.queue = state.queue.filter(entry => entry.id !== id);
+        state.content = JSON.parse(JSON.stringify(item.content));
+        persistState();
+        updateStats();
+        renderSection();
+        showToast('Approved content has been stored for later launch.');
+      }
+
+      function rejectItem(id) {
+        state.queue = state.queue.filter(entry => entry.id !== id);
+        persistState();
+        renderReviewQueue();
+        updateStats();
+        showToast('Submission rejected and removed from the queue.');
+      }
+
+      function handleImageUpload(event) {
+        const field = event.target.dataset.imageField;
+        if (!field || !event.target.files || !event.target.files[0]) return;
+        toDataUrl(event.target.files[0]).then((dataUrl) => {
+          const name = field.split('.');
+          const out = parseFormData(state.currentSection);
+          if (name[0] === 'projects' || name[0] === 'news') {
+            const index = Number(name[1]);
+            const key = name[2];
+            out[name[0]][index][key] = dataUrl;
+          } else {
+            out[name[0]][name[1]] = dataUrl;
+          }
+          state.content = out;
+          persistState();
+          renderSection();
+          showToast('Image uploaded and stored in the browser for this draft.');
+        }).catch(() => showToast('Unable to read the image.'));
+      }
+
+      function login(role, password) {
+        const savedPassword = role === 'admin' ? state.config.adminPassword : state.config.managerPassword;
+        if (!savedPassword || password !== savedPassword) {
+          showToast('Incorrect password for this role.');
+          return;
+        }
+
+        state.currentRole = role;
+        state.session = { role, loggedInAt: new Date().toISOString() };
+        persistState();
+        document.getElementById('loginPassword').value = '';
+        loginScreen.classList.add('hidden');
+        appScreen.classList.remove('hidden');
+        updateStats();
+        renderSection();
+      }
+
+      function logout() {
+        state.session = null;
+        persistState();
+        appScreen.classList.add('hidden');
+        loginScreen.classList.remove('hidden');
+        showToast('You have been logged out.');
+      }
+
+      loginForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const role = roleSelect.value;
+        const password = document.getElementById('loginPassword').value;
+        login(role, password);
+      });
+
+      setupForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const managerPassword = document.getElementById('managerPassword').value.trim();
+        const adminPassword = document.getElementById('adminPassword').value.trim();
+
+        if (!managerPassword || !adminPassword) {
+          showToast('Please add both passwords.');
+          return;
+        }
+
+        state.config.managerPassword = managerPassword;
+        state.config.adminPassword = adminPassword;
+        persistState();
+        renderLoginState();
+        showToast('Credentials saved. Please log in.');
+      });
+
+      document.getElementById('logoutBtn').addEventListener('click', logout);
+
+      document.addEventListener('change', (event) => {
+        if (event.target.matches('input[type="file"][data-image-field]')) {
+          handleImageUpload(event);
+        }
+      });
+
+      document.addEventListener('submit', (event) => {
+        if (event.target.id === 'contentForm') {
+          event.preventDefault();
+          saveDraft();
+        }
+      });
+
+      renderLoginState();
+      updateStats();
+
+      if (state.session) {
+        loginScreen.classList.add('hidden');
+        appScreen.classList.remove('hidden');
+        state.currentRole = state.session.role;
+        renderSection();
+      }
+    </script>
   </body>
 </html>
-
